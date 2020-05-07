@@ -1,0 +1,73 @@
+{
+  "name": "my-angular-boilerplate",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "npm run lint:fix && ng serve",
+    "start:aot": "npm run lint:fix && ng serve --aot",
+    "start:stage": "npm run lint && ng serve --configuration=stage",
+    "start:prod": "npm run lint && ng serve --configuration=production",
+    "build": "ng build",
+    "build:aot": "ng build --aot",
+    "build:dev": "ng build --configuration=development",
+    "build:dev:aot": "ng build --configuration=development --aot",
+    "build:stage": "ng build --prod --configuration=stage",
+    "build:stage:aot": "ng build --prod --configuration=stage --aot",
+    "build:prod": "ng build --prod --configuration=production",
+    "build:prod:aot": "ng build --prod --configuration=production --aot",
+    "lint": "ng lint my-angular-boilerplate",
+    "lint:fix": "ng lint my-angular-boilerplate --fix",
+    "lint:commit": "tslint -p tsconfig.json -c tslint.json --fix",
+    "test": "ng test",
+    "e2e": "ng e2e"
+  },
+  "lint-staged": {
+    "src/**/*.ts": [
+      "npm run lint:commit"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged -r"
+    }
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "~9.1.4",
+    "@angular/common": "~9.1.4",
+    "@angular/compiler": "~9.1.4",
+    "@angular/core": "~9.1.4",
+    "@angular/forms": "~9.1.4",
+    "@angular/platform-browser": "~9.1.4",
+    "@angular/platform-browser-dynamic": "~9.1.4",
+    "@angular/router": "~9.1.4",
+    "rxjs": "~6.5.4",
+    "tslib": "^1.10.0",
+    "zone.js": "~0.10.2"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "~0.901.4",
+    "@angular/cli": "~9.1.4",
+    "@angular/compiler-cli": "~9.1.4",
+    "@angular/language-service": "~9.1.4",
+    "@types/jasmine": "~3.5.0",
+    "@types/jasminewd2": "~2.0.3",
+    "@types/node": "^12.11.1",
+    "codelyzer": "^5.1.2",
+    "husky": "^4.2.5",
+    "jasmine-core": "~3.5.0",
+    "jasmine-spec-reporter": "~4.2.1",
+    "karma": "~5.0.0",
+    "karma-chrome-launcher": "~3.1.0",
+    "karma-coverage-istanbul-reporter": "~2.1.0",
+    "karma-jasmine": "~3.0.1",
+    "karma-jasmine-html-reporter": "^1.4.2",
+    "lint-staged": "^10.2.2",
+    "protractor": "~5.4.3",
+    "ts-node": "~8.3.0",
+    "tslint": "~6.1.0",
+    "tslint-config-airbnb": "^5.11.2",
+    "tslint-consistent-codestyle": "^1.16.0",
+    "typescript": "~3.8.3"
+  }
+}

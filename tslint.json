@@ -1,0 +1,332 @@
+{
+  "extends": "tslint:recommended",
+  "rulesDirectory": [
+    "codelyzer",
+    "tslint-config-airbnb",
+    "tslint-consistent-codestyle"
+  ],
+  "rules": {
+    "align": {
+      "options": [
+        "parameters",
+        "statements"
+      ]
+    },
+    "array-type": false,
+    "arrow-return-shorthand": true,
+    "curly": true,
+    "deprecation": {
+      "severity": "warning"
+    },
+    "component-class-suffix": true,
+    "contextual-lifecycle": true,
+    "directive-class-suffix": true,
+    "directive-selector": [
+      true,
+      "attribute",
+      ["app"],
+      "camelCase"
+    ],
+    "component-selector": [
+      true,
+      "element",
+      ["app"],
+      "kebab-case"
+    ],
+    "eofline": true,
+    "import-blacklist": [
+      true,
+      "rxjs/Rx"
+    ],
+    "import-spacing": true,
+    "indent": {
+      "options": [
+        "spaces"
+      ]
+    },
+    "max-classes-per-file": false,
+    "max-line-length": [
+      true,
+      {
+        "limit": 140,
+        "ignore-pattern": "^import |^export {(.*?)}|class [a-zA-Z]+ implements |// "
+      }
+    ],
+    "member-ordering": [
+      true,
+      {
+        "order": [
+          "public-static-field",
+          "public-static-method",
+          "protected-static-field",
+          "protected-static-method",
+          "private-static-field",
+          "private-static-method",
+          "public-instance-field",
+          "protected-instance-field",
+          "private-instance-field",
+          "constructor",
+          "public-instance-method",
+          "protected-instance-method",
+          "private-instance-method"
+        ]
+      }
+    ],
+    "prefer-readonly": true,
+    "prefer-function-over-method": [
+      true,
+      "allow-public",
+      "allow-protected"
+    ],
+    "no-invalid-this": [
+      true,
+      "check-function-in-method"
+    ],
+    "no-console": [
+      true,
+      "debug",
+      "info",
+      "time",
+      "timeEnd",
+      "trace"
+    ],
+    "no-empty": false,
+    "no-inferrable-types": [
+      true,
+      "ignore-params"
+    ],
+    "no-non-null-assertion": true,
+    "no-redundant-jsdoc": true,
+    "no-switch-case-fall-through": true,
+    "no-var-requires": false,
+    "object-literal-key-quotes": [
+      true,
+      "as-needed"
+    ],
+    "quotemark": [
+      true,
+      "single"
+    ],
+    "semicolon": {
+      "options": [
+        "always"
+      ]
+    },
+    "space-before-function-paren": {
+      "options": {
+        "anonymous": "never",
+        "asyncArrow": "always",
+        "constructor": "never",
+        "method": "never",
+        "named": "never"
+      }
+    },
+    "typedef": {
+      "options": [
+        "call-signature",
+        "parameter"
+      ]
+    },
+    "typedef-whitespace": {
+      "options": [
+        {
+          "call-signature": "nospace",
+          "index-signature": "nospace",
+          "parameter": "nospace",
+          "property-declaration": "nospace",
+          "variable-declaration": "nospace"
+        },
+        {
+          "call-signature": "onespace",
+          "index-signature": "onespace",
+          "parameter": "onespace",
+          "property-declaration": "onespace",
+          "variable-declaration": "onespace"
+        }
+      ]
+    },
+    "variable-name": {
+      "options": [
+        "ban-keywords",
+        "check-format",
+        "allow-pascal-case"
+      ]
+    },
+    "whitespace": {
+      "options": [
+        "check-branch",
+        "check-decl",
+        "check-operator",
+        "check-separator",
+        "check-type",
+        "check-typecast"
+      ]
+    },
+    "no-conflicting-lifecycle": true,
+    "no-host-metadata-property": true,
+    "no-input-rename": true,
+    "no-inputs-metadata-property": true,
+    "no-output-native": true,
+    "no-output-on-prefix": true,
+    "no-output-rename": true,
+    "no-outputs-metadata-property": true,
+    "template-banana-in-box": true,
+    "template-no-negated-async": true,
+    "use-lifecycle-interface": true,
+    "use-pipe-transform-interface": true,
+    "ordered-imports": [
+      true,
+      {
+        "module-source-path": "full",
+        "import-sources-order": "lowercase-last",
+        "named-imports-order": "lowercase-first",
+        "grouped-imports": true,
+        "groups": [
+          {
+            "name": "core",
+            "match": "^(@angular)",
+            "order": 1
+          },
+          {
+            "name": "ngrx",
+            "match": "^(@ngrx)",
+            "order": 1
+          },
+          {
+            "name": "env",
+            "match": "^(@env)",
+            "order": 2
+          },
+          {
+            "name": "rxjs",
+            "match": "^(rxjs)",
+            "order": 3
+          },
+          {
+            "name": "store",
+            "match": "(\\/store)",
+            "order": 4
+          },
+          {
+            "name": "actions",
+            "match": "(\\/actions)",
+            "order": 5
+          },
+          {
+            "name": "effects",
+            "match": "(\\/effects)",
+            "order": 6
+          },
+          {
+            "name": "reducers",
+            "match": "(\\/reducers)",
+            "order": 7
+          },{
+            "name": "selectors",
+            "match": "(\\/selectors)",
+            "order": 8
+          },{
+            "name": "modules",
+            "match": "(\\.module)",
+            "order": 9
+          },{
+            "name": "pages",
+            "match": "(\\/pages)",
+            "order": 10
+          },{
+            "name": "containers",
+            "match": "(\\/containers)",
+            "order": 11
+          },{
+            "name": "components",
+            "match": "(\\/components)",
+            "order": 12
+          },{
+            "name": "directives",
+            "match": "(\\/directives)",
+            "order": 13
+          },{
+            "name": "services",
+            "match": "(\\/services)",
+            "order": 14
+          },{
+            "name": "service",
+            "match": "(.service)",
+            "order": 15
+          },{
+            "name": "providers",
+            "match": "(\\/providers)",
+            "order": 16
+          },{
+            "name": "guards",
+            "match": "(\\/guards)",
+            "order": 17
+          },{
+            "name": "pipes",
+            "match": "(\\/pipes)",
+            "order": 18
+          },{
+            "name": "utils",
+            "match": "(\\/utils)",
+            "order": 19
+          },{
+            "name": "interfaces",
+            "match": "(\\/interfaces)",
+            "order": 20
+          },{
+            "name": "models",
+            "match": "(\\/models)",
+            "order": 21
+          },{
+            "name": "constants",
+            "match": "(\\/constants)",
+            "order": 22
+          },{
+            "name": "ui",
+            "match": "(\\/ui)",
+            "order": 23
+          },{
+            "name": "shared",
+            "match": "(\\/shared)",
+            "order": 24
+          },{
+            "name": "refs",
+            "match": "(\\/refs)",
+            "order": 25
+          },{
+            "name": "other",
+            "match": ".*",
+            "order": 26
+          }
+        ]
+      }
+    ],
+    "naming-convention": [
+      true,
+      // forbid leading and trailing underscores and enforce camelCase on EVERY name. will be overridden by subtypes if needed
+      {"type": "default", "format": "camelCase", "leadingUnderscore": "forbid", "trailingUnderscore": "forbid"},
+      // require all global constants to be camelCase or UPPER_CASE
+      // all other variables and functions still need to be camelCase
+      {"type": "variable", "modifiers": ["const"], "format": ["camelCase", "UPPER_CASE"]},
+      // require exported constant variables that are initialized with functions to be camelCase
+      {"type": "functionVariable", "modifiers": ["export", "const"], "format": "camelCase"},
+      // allow leading underscores for unused parameters, because `tsc --noUnusedParameters` will not flag underscore prefixed parameters
+      // all other rules (trailingUnderscore: forbid, format: camelCase) still apply
+      {"type": "parameter", "modifiers": "unused", "leadingUnderscore": "allow"},
+      // require leading underscores for private properties and methods, all other rules still apply
+      {"type": "member", "modifiers": "private", "leadingUnderscore": "require"},
+      // same for protected
+      {"type": "member", "modifiers": "protected", "leadingUnderscore": "require"},
+      // explicitly disable the format check only for method toJSON
+      {"type": "method", "filter": "^toJSON$", "format": null},
+      // enforce UPPER_CASE for all public static readonly(!) properties
+      {"type": "property", "modifiers": ["public", "static", "const"], "format": "UPPER_CASE"},
+      // enforce PascalCase for classes, interfaces, etc. Remember, there are still no underscores allowed.
+      {"type": "type", "format": "PascalCase"},
+      // abstract classes must have the prefix "Abstract". The following part of the name must be valid PascalCase
+      {"type": "class", "modifiers": "abstract", "prefix": "Abstract"},
+      // interface names must start with "I". The following part of the name must be valid PascalCase
+      {"type": "interface", "prefix": "I"}
+    ]
+  }
+}
