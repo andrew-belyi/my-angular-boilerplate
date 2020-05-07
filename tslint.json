@@ -1,50 +1,12 @@
 {
-  "extends": "tslint:recommended",
+  "extends": "tslint-config-airbnb",
   "rulesDirectory": [
     "codelyzer",
-    "tslint-config-airbnb",
     "tslint-consistent-codestyle"
   ],
   "rules": {
-    "align": {
-      "options": [
-        "parameters",
-        "statements"
-      ]
-    },
-    "array-type": false,
-    "arrow-return-shorthand": true,
-    "curly": true,
-    "deprecation": {
-      "severity": "warning"
-    },
-    "component-class-suffix": true,
-    "contextual-lifecycle": true,
-    "directive-class-suffix": true,
-    "directive-selector": [
-      true,
-      "attribute",
-      ["app"],
-      "camelCase"
-    ],
-    "component-selector": [
-      true,
-      "element",
-      ["app"],
-      "kebab-case"
-    ],
-    "eofline": true,
-    "import-blacklist": [
-      true,
-      "rxjs/Rx"
-    ],
-    "import-spacing": true,
-    "indent": {
-      "options": [
-        "spaces"
-      ]
-    },
-    "max-classes-per-file": false,
+    "directive-selector": [true, "attribute", ["app"], "camelCase"],
+    "component-selector": [true, "element", ["app"], "kebab-case"],
     "max-line-length": [
       true,
       {
@@ -82,6 +44,33 @@
       true,
       "check-function-in-method"
     ],
+    "align": {
+      "options": [
+        "parameters",
+        "statements"
+      ]
+    },
+    "array-type": false,
+    "arrow-return-shorthand": true,
+    "curly": true,
+    "deprecation": {
+      "severity": "warning"
+    },
+    "component-class-suffix": true,
+    "contextual-lifecycle": true,
+    "directive-class-suffix": true,
+    "eofline": true,
+    "import-blacklist": [
+      true,
+      "rxjs/Rx"
+    ],
+    "import-spacing": true,
+    "indent": {
+      "options": [
+        "spaces"
+      ]
+    },
+    "max-classes-per-file": false,
     "no-console": [
       true,
       "debug",
@@ -301,32 +290,20 @@
         ]
       }
     ],
-    "naming-convention": [
-      true,
-      // forbid leading and trailing underscores and enforce camelCase on EVERY name. will be overridden by subtypes if needed
+    "naming-convention": [ true,
       {"type": "default", "format": "camelCase", "leadingUnderscore": "forbid", "trailingUnderscore": "forbid"},
-      // require all global constants to be camelCase or UPPER_CASE
-      // all other variables and functions still need to be camelCase
       {"type": "variable", "modifiers": ["const"], "format": ["camelCase", "UPPER_CASE"]},
-      // require exported constant variables that are initialized with functions to be camelCase
       {"type": "functionVariable", "modifiers": ["export", "const"], "format": "camelCase"},
-      // allow leading underscores for unused parameters, because `tsc --noUnusedParameters` will not flag underscore prefixed parameters
-      // all other rules (trailingUnderscore: forbid, format: camelCase) still apply
       {"type": "parameter", "modifiers": "unused", "leadingUnderscore": "allow"},
-      // require leading underscores for private properties and methods, all other rules still apply
       {"type": "member", "modifiers": "private", "leadingUnderscore": "require"},
-      // same for protected
       {"type": "member", "modifiers": "protected", "leadingUnderscore": "require"},
-      // explicitly disable the format check only for method toJSON
       {"type": "method", "filter": "^toJSON$", "format": null},
-      // enforce UPPER_CASE for all public static readonly(!) properties
       {"type": "property", "modifiers": ["public", "static", "const"], "format": "UPPER_CASE"},
-      // enforce PascalCase for classes, interfaces, etc. Remember, there are still no underscores allowed.
       {"type": "type", "format": "PascalCase"},
-      // abstract classes must have the prefix "Abstract". The following part of the name must be valid PascalCase
       {"type": "class", "modifiers": "abstract", "prefix": "Abstract"},
-      // interface names must start with "I". The following part of the name must be valid PascalCase
-      {"type": "interface", "prefix": "I"}
+      {"type": "interface", "prefix": "I"},
+      {"type": "genericTypeParameter", "prefix": "T"},
+      {"type": "enumMember", "format": "PascalCase"}
     ]
   }
 }
