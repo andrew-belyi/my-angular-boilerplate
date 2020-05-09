@@ -34,7 +34,7 @@
         ]
       }
     ],
-    "prefer-readonly": true,
+    "function-name": false,
     "prefer-function-over-method": [
       true,
       "allow-public",
@@ -136,9 +136,7 @@
     },
     "variable-name": {
       "options": [
-        "ban-keywords",
-        "check-format",
-        "allow-pascal-case"
+        "ban-keywords"
       ]
     },
     "whitespace": {
@@ -170,122 +168,98 @@
         "import-sources-order": "lowercase-last",
         "named-imports-order": "lowercase-first",
         "grouped-imports": true,
-        "groups": [
-          {
-            "name": "core",
+        "groups": [{
+            "name": "angular",
             "match": "^(@angular)",
             "order": 1
-          },
-          {
+          }, {
             "name": "ngrx",
             "match": "^(@ngrx)",
-            "order": 1
-          },
-          {
-            "name": "env",
-            "match": "^(@env)",
             "order": 2
-          },
-          {
+          }, {
             "name": "rxjs",
             "match": "^(rxjs)",
             "order": 3
-          },
-          {
-            "name": "store",
-            "match": "(\\/store)",
+          }, {
+            "name": "env",
+            "match": "^(@env)",
             "order": 4
-          },
-          {
-            "name": "actions",
-            "match": "(\\/actions)",
-            "order": 5
-          },
-          {
-            "name": "effects",
-            "match": "(\\/effects)",
-            "order": 6
-          },
-          {
-            "name": "reducers",
-            "match": "(\\/reducers)",
-            "order": 7
-          },{
-            "name": "selectors",
-            "match": "(\\/selectors)",
-            "order": 8
-          },{
+          }, {
             "name": "modules",
-            "match": "(\\.module)",
-            "order": 9
-          },{
+            "match": "(.module$)",
+            "order": 5
+          }, {
             "name": "pages",
-            "match": "(\\/pages)",
-            "order": 10
-          },{
+            "match": "(-page.component$)",
+            "order": 6
+          }, {
             "name": "containers",
-            "match": "(\\/containers)",
-            "order": 11
-          },{
+            "match": "(-container.component$)",
+            "order": 7
+          }, {
             "name": "components",
-            "match": "(\\/components)",
-            "order": 12
-          },{
+            "match": "(.component$)",
+            "order": 8
+          }, {
             "name": "directives",
-            "match": "(\\/directives)",
-            "order": 13
-          },{
+            "match": "(.directive$)",
+            "order": 9
+          }, {
             "name": "services",
-            "match": "(\\/services)",
-            "order": 14
-          },{
-            "name": "service",
-            "match": "(.service)",
-            "order": 15
-          },{
+            "match": "(.service$)",
+            "order": 10
+          }, {
             "name": "providers",
-            "match": "(\\/providers)",
-            "order": 16
-          },{
+            "match": "(.provider$)",
+            "order": 11
+          }, {
             "name": "guards",
-            "match": "(\\/guards)",
-            "order": 17
-          },{
+            "match": "(.guard$)",
+            "order": 12
+          }, {
             "name": "pipes",
-            "match": "(\\/pipes)",
-            "order": 18
-          },{
+            "match": "(.pipe$)",
+            "order": 13
+          }, {
             "name": "utils",
-            "match": "(\\/utils)",
-            "order": 19
-          },{
+            "match": "(.util$)",
+            "order": 14
+          }, {
             "name": "interfaces",
-            "match": "(\\/interfaces)",
-            "order": 20
-          },{
+            "match": "(.interface$)",
+            "order": 15
+          }, {
             "name": "models",
-            "match": "(\\/models)",
-            "order": 21
-          },{
+            "match": "(.model$)",
+            "order": 16
+          }, {
             "name": "constants",
-            "match": "(\\/constants)",
+            "match": "(.constant$)",
+            "order": 17
+          }, {
+            "name": "core-store",
+            "match": "(\\/core\/store\/)",
+            "order": 18
+          }, {
+            "name": "actions",
+            "match": "(.action$)",
+            "order": 19
+          }, {
+            "name": "effects",
+            "match": "(.effect$)",
+            "order": 20
+          }, {
+            "name": "reducers",
+            "match": "(.reducer$)",
+            "order": 21
+          }, {
+            "name": "selectors",
+            "match": "(.selector$)",
             "order": 22
-          },{
-            "name": "ui",
-            "match": "(\\/ui)",
-            "order": 23
-          },{
-            "name": "shared",
-            "match": "(\\/shared)",
-            "order": 24
-          },{
-            "name": "refs",
-            "match": "(\\/refs)",
-            "order": 25
-          },{
+          }, {
             "name": "other",
             "match": ".*",
-            "order": 26
+            "order": 23
           }
         ]
       }

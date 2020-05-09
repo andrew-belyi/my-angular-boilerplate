@@ -164,5 +164,34 @@
         }
       }
     }},
-  "defaultProject": "my-angular-boilerplate"
+  "defaultProject": "my-angular-boilerplate",
+  "cli": {
+    "packageManager": "npm"
+  },
+  "schematics": {
+    "@schematics/angular:component": {
+      "prefix": "app",
+      "styleext": "scss",
+      "spec": false
+    },
+    "@schematics/angular:directive": {
+      "prefix": "app",
+      "spec": false
+    },
+    "@schematics/angular:service": {
+      "spec": false
+    },
+    "@schematics/angular:class": {
+      "spec": false
+    },
+    "@schematics/angular:module": {
+      "spec": false
+    },
+    "@schematics/angular:pipe": {
+      "spec": false
+    },
+    "@schematics/angular:guard": {
+      "spec": false
+    }
+  }
 }
