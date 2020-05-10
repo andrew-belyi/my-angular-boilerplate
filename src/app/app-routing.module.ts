@@ -8,39 +8,47 @@ import { PreloadCustomStrategy } from './core/services/preload-custom-strategy.s
 
 import { AuthGuard } from './routes/auth/guards/auth.guard';
 
+import { CorePath } from './core/constants/route.constants';
+
+// TODOs
+// router generate functions, routes string as enums
+// interceptors
+// ngrx, store-route, go
+// auth guard
+
 const routes: Routes = [
   {
-    path: '',
+    path: CorePath.Empty,
     pathMatch: 'full',
     redirectTo: 'dashboard',
   },
   {
-    path: 'dashboard',
+    path: CorePath.Dashboard,
     component: DashboardPageComponent,
   },
   {
-    path: 'auth',
+    path: CorePath.Auth,
     loadChildren: () => import('./routes/auth/auth.module').then(m => m.AuthModule),
     data: { preload: true },
   },
   {
-    path: 'admin',
+    path: CorePath.Admin,
     loadChildren: () => import('./routes/admin/admin.module').then(m => m.AdminModule),
     canActivate: [AuthGuard],
     // data: { preload: true },
   },
   {
-    path: 'heroes',
+    path: CorePath.Heroes,
     loadChildren: () => import('./routes/heroes/heroes.module').then(m => m.HeroesModule),
     // data: { preload: true },
   },
   {
-    path: 'titles',
+    path: CorePath.Titles,
     loadChildren: () => import('./routes/titles/titles.module').then(m => m.TitlesModule),
     // data: { preload: true },
   },
   {
-    path: '**',
+    path: CorePath.Other,
     component: NotFoundPageComponent,
   },
 ];

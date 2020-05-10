@@ -1,7 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 
 import { CustomEmitter } from './core/services/custom-emitter.service';
 import { DocumentRef } from './core/services/document-ref.service';
@@ -12,6 +11,7 @@ import { WindowRef } from './core/services/window-ref.service';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit, OnDestroy {
 
@@ -32,14 +32,17 @@ export class AppComponent implements OnInit, OnDestroy {
     // console.log(this._documentRef);
     // console.log(this._documentRef.nativeElement);
 
-    // this._customEmitter.emit('test', { name: 'Lol' });
-    // this._customEmitter.on('test')
+    // this._customEmitter.emit<ITestData>('test', { name: 'name' });
+    // this._customEmitter.emit<ITestData>('test2', { name: 'name2' });
+    // this._customEmitter.on<ITestData>('test', 'test2')
     //   .pipe(
     //     takeUntil(this._subscriber$),
     //   )
-    //   .subscribe((value) => {
+    //   .subscribe((value: ICustomEvent<ITestData>) => {
     //     console.log(value);
     //   });
+    // this._customEmitter.emit<ITestData>('test2', { name: 'name2' });
+    // this._customEmitter.emit<ITestData>('test3', { name: 'name3' });
   }
 
   ngOnDestroy(): void {
@@ -50,4 +53,18 @@ export class AppComponent implements OnInit, OnDestroy {
   preloadModule(routePath: string): void {
     this._preloadModuleService.startPreload(routePath);
   }
+
+  getAdminRoute(): string[] {
+    console.log('ge admin route');
+    return ['/', 'admin'];
+  }
+
+  get adminRoute(): string[] {
+    console.log('get admin route');
+    return ['/', 'admin'];
+  }
+}
+
+interface ITestData {
+  name: string;
 }

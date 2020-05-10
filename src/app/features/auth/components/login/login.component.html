@@ -1,0 +1,20 @@
+<h1>Result using manual calculation of full name:</h1>
+<p>Kudos to <strong>{{ personName }}</strong> for the work she has been doing on Angular!</p>
+<p class="amount">Number of times calculated: <span>{{ manualCount }}</span></p>
+<h1>Result using getter to calculate full name:</h1>
+<p>Kudos to <strong>{{ fullName }}</strong> for the work she has been doing on Angular!</p>
+<p class="amount">Number of times calculated: <span>{{ getterCount }}</span></p>
+<h1>Result using function to calculate full name:</h1>
+<p>Kudos to <strong>{{ getFullName() }}</strong> for the work she has been doing on Angular!</p>
+<p class="amount">Number of times calculated: <span>{{ functionCount }}</span></p>
+<h1>Result using pure pipe to calculate full name:</h1>
+<p>Kudos to <strong>{{ person | fullNamePure }}</strong> for the work she has been doing on Angular!</p>
+<p class="amount">Number of times calculated: <span>{{ pureCount }}</span></p>
+<h1>Result using impure pipe to calculate full name:</h1>
+<p>Kudos to <strong>{{ person | fullNameImpure }}</strong> for the work she has been doing on Angular!</p>
+<p class="amount">Number of times calculated: <span>{{ impureCount }}</span></p>
+<h1>Trigger change detection</h1>
+<p class="hover-area" (mouseover)="onMouseOver()" (mouseout)="onMouseOut()">Hover your mouse here to trigger mouseover and mouseout</p>
+<p class="hover-area" (mousemove)="onMouseMove()">Hover your mouse here to trigger mousemove</p>
+<button (click)="onDoSomethingClick()">Do something unrelated inside PersonComponent</button>
+<button (click)="onLoginClick()">Login</button>

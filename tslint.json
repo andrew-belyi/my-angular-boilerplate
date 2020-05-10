@@ -185,81 +185,97 @@
             "match": "^(@env)",
             "order": 4
           }, {
+            "name": "core",
+            "match": "^(@core)",
+            "order": 5
+          }, {
+            "name": "features",
+            "match": "^(@features)",
+            "order": 6
+          }, {
+            "name": "routes",
+            "match": "^(@routes)",
+            "order": 6
+          }, {
+            "name": "ui",
+            "match": "^(@ui)",
+            "order": 6
+          }, {
             "name": "modules",
             "match": "(.module$)",
-            "order": 5
+            "order": 7
           }, {
             "name": "pages",
             "match": "(-page.component$)",
-            "order": 6
+            "order": 8
           }, {
             "name": "containers",
             "match": "(-container.component$)",
-            "order": 7
+            "order": 9
           }, {
             "name": "components",
             "match": "(.component$)",
-            "order": 8
+            "order": 10
           }, {
             "name": "directives",
             "match": "(.directive$)",
-            "order": 9
+            "order": 11
           }, {
             "name": "services",
             "match": "(.service$)",
-            "order": 10
+            "order": 12
           }, {
             "name": "providers",
             "match": "(.provider$)",
-            "order": 11
+            "order": 13
           }, {
             "name": "guards",
             "match": "(.guard$)",
-            "order": 12
+            "order": 14
           }, {
             "name": "pipes",
             "match": "(.pipe$)",
-            "order": 13
+            "order": 15
           }, {
             "name": "utils",
             "match": "(.util$)",
-            "order": 14
+            "order": 16
           }, {
             "name": "interfaces",
             "match": "(.interface$)",
-            "order": 15
+            "order": 17
           }, {
             "name": "models",
             "match": "(.model$)",
-            "order": 16
+            "order": 18
           }, {
             "name": "constants",
             "match": "(.constant$)",
-            "order": 17
+            "order": 19
           }, {
             "name": "core-store",
             "match": "(\\/core\/store\/)",
-            "order": 18
+            "order": 20
           }, {
             "name": "actions",
             "match": "(.action$)",
-            "order": 19
+            "order": 21
           }, {
             "name": "effects",
             "match": "(.effect$)",
-            "order": 20
+            "order": 22
           }, {
             "name": "reducers",
             "match": "(.reducer$)",
-            "order": 21
+            "order": 23
           }, {
             "name": "selectors",
             "match": "(.selector$)",
-            "order": 22
+            "order": 24
           }, {
             "name": "other",
             "match": ".*",
-            "order": 23
+            "order": 25
           }
         ]
       }

@@ -3,14 +3,16 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 
+import { AuthPath } from './constants/route.constants';
+
 const routes: Routes = [
   {
-    path: '',
+    path: AuthPath.Empty,
     pathMatch: 'full',
     redirectTo: 'login',
   },
   {
-    path: 'login',
+    path: AuthPath.Login,
     component: LoginPageComponent,
   },
 ];

@@ -7,7 +7,7 @@ export class PreloadModuleService {
 
   private _subject$: Subject<string> = new Subject<string>();
 
-  get moduleToPreload(): Observable<string> {
+  get moduleToPreload$(): Observable<string> {
     return this._subject$.asObservable();
   }
 

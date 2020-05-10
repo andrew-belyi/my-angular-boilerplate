@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { PreloadingStrategy, Route } from '@angular/router';
 
 import { EMPTY, Observable } from 'rxjs';
-import { mergeMap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import { PreloadModuleService } from './preloadModule.service';
 
@@ -24,19 +24,18 @@ export const AVOID_CONNECTIONS = ['slow-2g', '2g']; // 3g, 4g
 @Injectable({ providedIn: 'root' })
 export class PreloadCustomStrategy implements PreloadingStrategy {
 
-  private _moduleToPreload$: Observable<string> = this._preloadModuleService.moduleToPreload;
-
   constructor(
     private _preloadModuleService: PreloadModuleService,
   ) {}
 
   preload(route: Route, load: () => Observable<any>): Observable<any> {
+    // in case of preload if route is pre-loadable by config and conditions
     if (canPreload(route)) {
       return load();
     }
-    // preload module manually
-    return this._moduleToPreload$.pipe(
-      mergeMap((preloadModuleRoutePath: string) => preloadModuleRoutePath === route.path ? load() : EMPTY),
+    // in case of preload module manually using service
+    return this._preloadModuleService.moduleToPreload$.pipe(
+      map((preloadModuleRoutePath: string) => preloadModuleRoutePath === route.path ? load() : EMPTY),
     );
   }
 }
