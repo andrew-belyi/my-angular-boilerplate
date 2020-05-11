@@ -1,21 +1,16 @@
 import { Injectable } from '@angular/core';
-import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
+import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 
 import { BehaviorSubject, Observable } from 'rxjs';
 
-import { ILayout } from '@ui/layout/interfaces/layout.interface';
-
-import { Device, Orientation } from '@ui/layout/constants/layout.constatns';
+import { Breakpoint, Device } from '@ui/layout/constants/layout.constatns';
 
 @Injectable({ providedIn: 'root' })
 export class LayoutHelperService {
 
-  private _layoutSubject$: BehaviorSubject<ILayout> = new BehaviorSubject<ILayout>({
-    device: Device.Web,
-    orientation: Orientation.Landscape,
-  });
+  private _layoutSubject$: BehaviorSubject<Device> = new BehaviorSubject<Device>(Device.Desktop);
 
-  get layout(): Observable<ILayout> {
+  get layout(): Observable<Device> {
     return this._layoutSubject$.asObservable();
   }
 
@@ -23,41 +18,20 @@ export class LayoutHelperService {
     private _breakpointObserver: BreakpointObserver,
   ) {
     _breakpointObserver.observe([
-      Breakpoints.Handset,
-      Breakpoints.Tablet,
-      Breakpoints.Web,
+      Breakpoint.ExtraSmall,
+      Breakpoint.Small,
+      Breakpoint.Medium,
+      Breakpoint.Large,
+      Breakpoint.ExtraLarge,
     ]).subscribe((result: BreakpointState) => {
-      if (result.matches) {
-        if (result.breakpoints[Breakpoints.HandsetLandscape]) {
-          this._layoutSubject$.next({
-            device: Device.Handset,
-            orientation: Orientation.Landscape,
-          });
-        } else if (result.breakpoints[Breakpoints.HandsetPortrait]) {
-          this._layoutSubject$.next({
-            device: Device.Handset,
-            orientation: Orientation.Portrait,
-          });
-        } else if (result.breakpoints[Breakpoints.TabletLandscape]) {
-          this._layoutSubject$.next({
-            device: Device.Tablet,
-            orientation: Orientation.Landscape,
-          });
-        } else if (result.breakpoints[Breakpoints.TabletPortrait]) {
-          this._layoutSubject$.next({
-            device: Device.Tablet,
-            orientation: Orientation.Portrait,
-          });
-        } else if (result.breakpoints[Breakpoints.WebLandscape]) {
-          this._layoutSubject$.next({
-            device: Device.Web,
-            orientation: Orientation.Landscape,
-          });
-        } else if (result.breakpoints[Breakpoints.WebPortrait]) {
-          this._layoutSubject$.next({
-            device: Device.Web,
-            orientation: Orientation.Portrait,
-          });
+      const { matches, breakpoints } = result;
+      if (matches) {
+        if (breakpoints[Breakpoint.ExtraSmall] || breakpoints[Breakpoint.Small]) {
+          this._layoutSubject$.next(Device.Mobile);
+        } else if (breakpoints[Breakpoint.Medium]) {
+          this._layoutSubject$.next(Device.Tablet);
+        } else if (breakpoints[Breakpoint.Large] || breakpoints[Breakpoint.ExtraLarge]) {
+          this._layoutSubject$.next(Device.Desktop);
         }
       } else {
         console.log('Not valid resolution');

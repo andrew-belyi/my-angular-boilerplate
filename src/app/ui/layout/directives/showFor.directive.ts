@@ -5,8 +5,6 @@ import { takeUntil } from 'rxjs/operators';
 
 import { LayoutHelperService } from '@ui/layout/services/layout-helper.service';
 
-import { ILayout } from '@ui/layout/interfaces/layout.interface';
-
 import { Device } from '@ui/layout/constants/layout.constatns';
 
 @Directive({
@@ -17,7 +15,6 @@ export class ShowForDirective implements OnInit, OnDestroy {
   @Input() appShowFor: Device[];
 
   private _subscriber$: Subject<void> = new Subject<void>();
-  private _layout: ILayout;
 
   constructor(
     private _layoutHelperService: LayoutHelperService,
@@ -29,12 +26,11 @@ export class ShowForDirective implements OnInit, OnDestroy {
   ngOnInit(): void {
     this._layoutHelperService.layout
       .pipe(takeUntil(this._subscriber$))
-      .subscribe((layout: ILayout) => {
-        this._layout = layout;
-        if (this.appShowFor.includes(layout.device)) {
-          this.show();
+      .subscribe((device: Device) => {
+        if (this.appShowFor.includes(device)) {
+          this.create();
         } else {
-          this.hide();
+          this.clear();
         }
       });
   }
@@ -44,11 +40,11 @@ export class ShowForDirective implements OnInit, OnDestroy {
     this._subscriber$.complete();
   }
 
-  show(): void {
+  create(): void {
     this._viewContainerRef.createEmbeddedView(this._templateRef);
   }
 
-  hide(): void {
+  clear(): void {
     this._viewContainerRef.clear();
   }
 }
