@@ -19,3 +19,10 @@
 <ng-container #viewContainerTemplateRef [ngTemplateOutlet]="tempRef"></ng-container>
 <!--<ng-container #viewContainerTemplateRef *ngComponentOutlet="cdrDemoComponent"></ng-container>-->
 <br/>
+
+<p *appShowFor="[devices.Handset]">
+  Only for mobiles
+</p>
+<p *appShowFor="[devices.Web]">
+  Only for web
+</p>

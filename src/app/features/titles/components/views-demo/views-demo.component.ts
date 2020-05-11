@@ -15,6 +15,8 @@ import { CdrDemoComponent } from '@features/titles/components/cdr-demo/cdr-demo.
 
 import { IPerson } from '@features/titles/interfaces/person.interface';
 
+import { Device } from '@ui/layout/constants/layout.constatns';
+
 @Component({
   selector: 'app-views-demo',
   templateUrl: './views-demo.component.html',
@@ -31,6 +33,8 @@ export class ViewsDemoComponent implements OnInit, AfterViewInit {
 
   @ViewChild('viewContainerControllerRef', { read: ViewContainerRef }) viewContainerControllerRef: ViewContainerRef;
   @ViewChild('viewContainerTemplateRef', { read: ViewContainerRef }) viewContainerTemplateRef: ViewContainerRef;
+
+  readonly devices = Device;
 
   cdrDemoComponent = CdrDemoComponent;
   person: IPerson = {

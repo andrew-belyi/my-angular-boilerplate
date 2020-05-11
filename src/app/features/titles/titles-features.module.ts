@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { PipesModule } from '@features/pipes/pipes.module';
+import { PipesModule } from '@ui/pipes/pipes.module';
+import { LayoutHelperModule } from '@ui/layout/layout-helper.module';
 
 import { CdrDemoContainerComponent } from './containers/cdr-demo-container/cdr-demo-container.component';
 import { ViewsDemoContainerComponent } from './containers/views-demo-container/views-demo-container.component';
@@ -19,6 +20,7 @@ import { ViewsDemoComponent } from './components/views-demo/views-demo.component
   imports: [
     CommonModule,
     PipesModule,
+    LayoutHelperModule,
   ],
   exports: [
     CdrDemoContainerComponent,

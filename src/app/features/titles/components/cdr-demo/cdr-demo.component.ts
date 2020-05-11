@@ -40,7 +40,6 @@ export class CdrDemoComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnInit(): void {
-    console.log('init');
     this.generateFullName();
     this._customEmitter.on('pure', 'impure')
       .pipe(
@@ -56,7 +55,6 @@ export class CdrDemoComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('changes');
     if (changes.person) {
       // manual
       this.generateFullName();

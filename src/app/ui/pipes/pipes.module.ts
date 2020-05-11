@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
-import { FullNameImpurePipe } from '@features/pipes/pipes/full-name-impure.pipe';
-import { FullNamePurePipe } from '@features/pipes/pipes/full-name-pure.pipe';
+import { FullNameImpurePipe } from '@ui/pipes/pipes/full-name-impure.pipe';
+import { FullNamePurePipe } from '@ui/pipes/pipes/full-name-pure.pipe';
 
 @NgModule({
   declarations: [
