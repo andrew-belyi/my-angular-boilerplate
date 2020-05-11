@@ -1,10 +1,17 @@
 import { NgModule } from '@angular/core';
 
 import { ShowForDirective } from '@ui/layout/directives/showFor.directive';
+import { HideForDirective } from '@ui/layout/directives/hideFor.directive';
 
 @NgModule({
-  declarations: [ShowForDirective],
+  declarations: [
+    ShowForDirective,
+    HideForDirective,
+  ],
   imports: [],
-  exports: [ShowForDirective],
+  exports: [
+    ShowForDirective,
+    HideForDirective,
+  ],
 })
 export class LayoutHelperModule {}
