@@ -1,19 +1,22 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { DashboardPageComponent } from './core/pages/dashboard-page/dashboard-page.component';
-import { NotFoundPageComponent } from './core/pages/not-found-page/not-found-page.component';
+import { DashboardPageComponent } from '@core/pages/dashboard-page/dashboard-page.component';
+import { NotFoundPageComponent } from '@core/pages/not-found-page/not-found-page.component';
 
-import { PreloadCustomStrategy } from './core/services/preload-custom-strategy.service';
+import { PreloadCustomStrategy } from '@core/services/preload-custom-strategy.service';
 
-import { AuthGuard } from './routes/auth/guards/auth.guard';
+import { AuthGuard } from '@routes/auth/guards/auth.guard';
 
-import { CorePath } from './core/constants/route.constants';
+import { CorePath } from '@core/constants/route.constants';
 
-// TODOs
-// router generate functions, routes string as enums
-// interceptors
+// TODO
+// router generate functions, routes string as enums - TODO how to generate using manual or pipe output
+// routes, features folders TODO in feature module exports only container, components are inside?
+// web worker, service worker
+// breakpoints observable
 // ngrx, store-route, go
+// interceptors
 // auth guard
 
 const routes: Routes = [

@@ -1,0 +1,12 @@
+<h1>Instructions</h1>
+<ul>
+  <li>The red border outlines the PersonComponent</li>
+  <li>Interact with buttons and hover areas inide and outside PersonComponent</li>
+  <li>Watch how many times the full name is calculated manually</li>
+  <li>Watch how many times the full name is calculated via a function call</li>
+  <li>Even with ChangeDetectionStrategy.OnPush enabled in PersonComponent, see how function is still executed when events are triggered within PersonComponent</li>
+</ul>
+<h1>Playground</h1>
+<button (click)="onNextPersonClick()">Next person</button>
+<button (click)="onDoSomethingClick()">Do mark for check in parent</button>
+<app-cdr-demo [person]="personToShow"></app-cdr-demo>

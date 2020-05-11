@@ -39,7 +39,6 @@
               "sourceMap": true,
               "extractCss": true,
               "namedChunks": true,
-              "aot": false,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": false,
@@ -56,7 +55,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": false,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": false,
@@ -169,29 +167,32 @@
     "packageManager": "npm"
   },
   "schematics": {
-    "@schematics/angular:component": {
-      "prefix": "app",
-      "styleext": "scss",
-      "spec": false
-    },
-    "@schematics/angular:directive": {
-      "prefix": "app",
-      "spec": false
-    },
-    "@schematics/angular:service": {
-      "spec": false
-    },
-    "@schematics/angular:class": {
-      "spec": false
-    },
-    "@schematics/angular:module": {
-      "spec": false
-    },
-    "@schematics/angular:pipe": {
-      "spec": false
-    },
-    "@schematics/angular:guard": {
-      "spec": false
+    "@schematics/angular": {
+      "component": {
+        "prefix": "app",
+        "styleext": "scss",
+        "spec": false,
+        "changeDetection": "OnPush"
+      },
+      "directive": {
+        "prefix": "app",
+        "spec": false
+      },
+      "service": {
+        "spec": false
+      },
+      "class": {
+        "spec": false
+      },
+      "module": {
+        "spec": false
+      },
+      "pipe": {
+        "spec": false
+      },
+      "guard": {
+        "spec": false
+      }
     }
   }
 }

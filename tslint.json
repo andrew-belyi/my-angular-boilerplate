@@ -165,8 +165,8 @@
       true,
       {
         "module-source-path": "full",
-        "import-sources-order": "lowercase-last",
-        "named-imports-order": "lowercase-first",
+        "import-sources-order": "any",
+        "named-imports-order": "any",
         "grouped-imports": true,
         "groups": [{
             "name": "angular",
@@ -184,22 +184,6 @@
             "name": "env",
             "match": "^(@env)",
             "order": 4
-          }, {
-            "name": "core",
-            "match": "^(@core)",
-            "order": 5
-          }, {
-            "name": "features",
-            "match": "^(@features)",
-            "order": 6
-          }, {
-            "name": "routes",
-            "match": "^(@routes)",
-            "order": 6
-          }, {
-            "name": "ui",
-            "match": "^(@ui)",
-            "order": 6
           }, {
             "name": "modules",
             "match": "(.module$)",
@@ -250,12 +234,8 @@
             "order": 18
           }, {
             "name": "constants",
-            "match": "(.constant$)",
+            "match": "(.constants$)",
             "order": 19
-          }, {
-            "name": "core-store",
-            "match": "(\\/core\/store\/)",
-            "order": 20
           }, {
             "name": "actions",
             "match": "(.action$)",

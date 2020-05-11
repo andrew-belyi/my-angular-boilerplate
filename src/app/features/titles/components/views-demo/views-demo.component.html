@@ -1,0 +1,21 @@
+<p #elemStaticRef>I am element static reference</p>
+<p #elemRef>I am element reference</p>
+
+<ng-template #tempStaticRef>
+  <span>I am template static reference</span>
+</ng-template>
+<ng-template #tempRef>
+  <span>I am template reference</span>
+</ng-template>
+
+
+<span>Manually in controller</span>
+<br/>
+<ng-container #viewContainerControllerRef></ng-container>
+<br/>
+
+<span>Manually in template</span>
+<br/>
+<ng-container #viewContainerTemplateRef [ngTemplateOutlet]="tempRef"></ng-container>
+<!--<ng-container #viewContainerTemplateRef *ngComponentOutlet="cdrDemoComponent"></ng-container>-->
+<br/>
