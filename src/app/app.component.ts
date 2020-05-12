@@ -3,10 +3,10 @@ import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { CustomEmitter } from './core/services/custom-emitter.service';
-import { DocumentRef } from './core/services/document-ref.service';
-import { PreloadModuleService } from './core/services/preloadModule.service';
-import { WindowRef } from './core/services/window-ref.service';
+import { CustomEmitter } from '@core/services/custom-emitter.service';
+import { DocumentRef } from '@core/services/document-ref.service';
+import { WindowRef } from '@core/services/window-ref.service';
+import { PreloadModuleService } from '@core/services/preload-module.service';
 
 @Component({
   selector: 'app-root',

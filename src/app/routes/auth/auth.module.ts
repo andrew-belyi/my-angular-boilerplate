@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 
-import { AuthFeaturesModule } from '@features/auth/auth-features.module';
+import { AuthFeatureModule } from '@features/auth/auth-feature.module';
 import { AuthRoutingModule } from './auth-routing.module';
 
 import { LoginPageComponent } from './pages/login-page/login-page.component';
@@ -11,7 +11,7 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
   ],
   imports: [
     AuthRoutingModule,
-    AuthFeaturesModule,
+    AuthFeatureModule,
   ],
 })
 export class AuthModule { }

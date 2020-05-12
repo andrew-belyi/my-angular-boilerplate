@@ -1,6 +1,8 @@
 import { APP_BASE_HREF, CommonModule } from '@angular/common';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
+
+import { CoreStoreModule } from '@core/store/core-store.module';
 
 import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
@@ -16,6 +18,8 @@ import { windowFactory, WINDOW_TOKEN } from './services/window-ref.service';
   ],
   imports: [
     CommonModule,
+    CoreStoreModule,
+    HttpClientModule,
   ],
   providers: [
     {

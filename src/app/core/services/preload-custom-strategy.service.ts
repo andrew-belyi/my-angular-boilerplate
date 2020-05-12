@@ -4,7 +4,7 @@ import { PreloadingStrategy, Route } from '@angular/router';
 import { EMPTY, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { PreloadModuleService } from './preloadModule.service';
+import { PreloadModuleService } from './preload-module.service';
 
 export declare var navigator;
 export const AVOID_CONNECTIONS = ['slow-2g', '2g']; // 3g, 4g

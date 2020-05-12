@@ -8,16 +8,17 @@ import { PreloadCustomStrategy } from '@core/services/preload-custom-strategy.se
 
 import { AuthGuard } from '@routes/auth/guards/auth.guard';
 
-import { CorePath } from '@core/constants/route.constants';
+import { CorePath } from '@core/constants/route.constant';
 
 // TODO
 // router generate functions, routes string as enums - TODO how to generate using manual or pipe output
 // routes, features folders TODO in feature module exports only container, components are inside?
-// ngrx, store-route, go
+// ngrx, store-route, go TODO why are selectors function inside reducers, why did you create createPayload function
 // interceptors
 // auth guard
 // web worker, service worker
 // permissions
+// schematics
 
 const routes: Routes = [
   {

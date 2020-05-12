@@ -234,7 +234,7 @@
             "order": 18
           }, {
             "name": "constants",
-            "match": "(.constants$)",
+            "match": "(.constant$)",
             "order": 19
           }, {
             "name": "actions",

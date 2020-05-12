@@ -17,4 +17,4 @@ import { LoginComponent } from './components/login/login.component';
     LoginContainerComponent,
   ],
 })
-export class AuthFeaturesModule { }
+export class AuthFeatureModule { }
