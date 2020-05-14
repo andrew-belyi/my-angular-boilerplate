@@ -28,13 +28,6 @@ enum ActionTypes {
 
 export const setTitleAction = createAction(ActionTypes.SetTitle, createPayload<ITitle>());
 export const loadTitlesAction = createAction(ActionTypes.LoadTitles);
-// export const loadTitlesSuccessAction = createAction(ActionTypes.LoadTitlesSuccess,
-//   (titles = [{
-//     userId: 1,
-//     id: 1,
-//     title: 'delectus aut autem',
-//     completed: false,
-//   }]) => ({ payload: titles }));
 export const loadTitlesSuccessAction = createAction(ActionTypes.LoadTitlesSuccess, createPayload<ITitle[]>());
 export const loadTitlesErrorAction = createAction(ActionTypes.LoadTitlesError, createPayload<IServerError>());
 export const mapTitlesAction = createAction(ActionTypes.MapTitles, createPayload<EntityMap<ITitle>>());
