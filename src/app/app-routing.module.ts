@@ -12,12 +12,12 @@ import { CorePath } from '@core/constants/route.constant';
 
 // TODO
 // router generate functions, routes string as enums - TODO how to generate using manual or pipe output
-// routes, features folders TODO in feature module exports only container, components are inside?
-// ngrx, store-route, go TODO why are selectors function inside reducers, why createPayload was created, use EventBus
-// interceptors // TODO clear architecture
+// ngrx, store-route, go
+// interceptors
 // auth guard
-// web worker, service worker
 // permissions
+// web worker
+// service worker, app shell
 // schematics
 
 const routes: Routes = [

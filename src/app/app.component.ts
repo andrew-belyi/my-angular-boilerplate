@@ -57,3 +57,17 @@ export class AppComponent implements OnInit, OnDestroy {
 interface ITestData {
   name: string;
 }
+
+// TODO it could be in effect
+if (typeof Worker !== 'undefined') {
+  // Create a new
+  const worker = new Worker('@workers/app.worker', { type: 'module' });
+  console.log('run web worker');
+  worker.postMessage(3);
+  worker.onmessage = ({ data }) => {
+    console.log('result: ', data);
+  };
+} else {
+  // Web Workers are not supported in this environment.
+  // You should add a fallback so that your program still executes correctly.
+}

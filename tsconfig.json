@@ -24,7 +24,8 @@
       "@core/*": ["app/core/*"],
       "@features/*": ["app/features/*"],
       "@routes/*": ["app/routes/*"],
-      "@ui/*": ["app/ui/*"]
+      "@ui/*": ["app/ui/*"],
+      "@workers/*": ["app/workers/*"]
     }
   },
   "angularCompilerOptions": {
