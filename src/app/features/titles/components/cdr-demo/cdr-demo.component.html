@@ -1,4 +1,10 @@
 <section>
+  <h3>
+    Change detection is triggered at:
+    <span [textContent]="time | date: 'hh:mm:ss:SSS'"></span>
+  </h3>
+</section>
+<section>
   <h1>Result using manual calculation of full name:</h1>
   <p>Kudos to <strong>{{ personName }}</strong> for the work she has been doing on Angular!</p>
   <p class="amount">Number of times calculated: <span>{{ manualCount }}</span></p>

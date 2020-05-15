@@ -7,6 +7,57 @@ import { CustomEmitter, ICustomEvent } from '@core/services/custom-emitter.servi
 
 import { IPerson } from '@features/titles/interfaces/person.interface';
 
+/**
+ * 1. Change detection mechanism
+ *
+ * When angular creates an instance of component it needs to create DOM nodes for html elements from template, to track them and
+ * in case of destroy remove them from DOM. Angular has a specific data structure for it and it's called View.
+ * Every component in Angular under the hood is represented as a View. There is one to one relationship.
+ *
+ * As a compiler go through the template, it tries to identify the properties of DOM elements that needs to be update during
+ * change detection. For each such property Angular creates something called Binding.
+ * Binding - is a data structure, that defines two things: what we need to update during change detection and where to get value
+ * from (an expression that we specify in a template, ex [textContent]="someControllerPublicMember").
+ * !!! So view created for component and a set of bindings, created for that component template are the main building blocks of change
+ * detection in Angular !!!
+ *
+ * When Angular runs change detection for a View (for a Component, but internally Angular works with Views), in other words
+ * Checks the View, it runs over all bindings created for that component and evaluate expressions, compare the result of expressions
+ * (comparing 'currentValues' with 'previousValues'). There is a property called 'oldValues' in a View, where Angular puts this old
+ * result, so he can compare them. If it detects the difference, it updates the DOM. This is a basic mechanism of change detection.
+ * !!! This process is known as Dirty Checking !!!
+ *
+ * So angular evaluates the expression, compare it to previous value, if it's different updated the DOM, also put current value
+ * to old values array of View (span.textContent = instance.time; view.oldValues[0] = instance.time).
+ *
+ * Important to know, that in dev mode, right after dirty checking, Angular synchronously runs and extra check (performs the same steps,
+ * as during change detection) to ensure that expression that was evaluated during change detection return the same result.
+ * And if it detects the difference it throws an error.
+ * In case of current code, it's possible, that during second check, the result of Date.now() will be different in millisecond.
+ * !!! This is a place where ExpressionChangedAfterItHasBeenCheckedError occurs !!!
+ *
+ * How we can avoid such error?
+ * So, Angular makes second check synchronously. It means, that we need to update values for expression asynchronously (because in this
+ * case it will be triggered after synchronous code, according to main Event Loop functionality)
+ *
+ * The steps of change detection in Angular:
+ * Create View -> Create Bindings -> Process Bindings -> Update DOM -> Run synchronous check (for dev mode)
+ *
+ * We can check and debug the function in core called 'checkAndUpdateView(view)'
+ * There in View we can find next fields:
+ * component - our component instance
+ * nodes - the references to DOM nodes, created for the template,
+ * oldValues - and array, where Angular keeps the result of previous expression evaluation, pipe, etc
+ *
+ *
+ * Also in this example I show how many times change detection mechanism call different types of data binding
+ * 1. Using manual calculations (good one)
+ * 2. Using getters (bad)
+ * 3. Using function (bad)
+ * 4. Using pure pipe (very good one)
+ * 5. Using impure pipe (bad one)
+ */
+
 @Component({
   selector: 'app-cdr-demo',
   templateUrl: './cdr-demo.component.html',
@@ -24,6 +75,10 @@ export class CdrDemoComponent implements OnInit, OnChanges, OnDestroy {
   impureCount = 0;
 
   personName: string;
+
+  get time(): number {
+    return Date.now();
+  }
 
   // getter
   get fullName(): string {
@@ -55,7 +110,7 @@ export class CdrDemoComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.person) {
+    if (changes.person && !changes.person.firstChange) {
       // manual
       this.generateFullName();
     }

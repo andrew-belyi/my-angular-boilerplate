@@ -4,6 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { TitlesPageComponent } from './pages/titles-page/titles-page.component';
 import { CdrDemoPageComponent } from '@routes/titles/pages/cdr-demo-page/cdr-demo-page.component';
 import { ViewsDemoPageComponent } from '@routes/titles/pages/views-demo-page/views-demo-page.component';
+import { CdrDemoTwoPageComponent } from '@routes/titles/pages/cdr-demo-two-page/cdr-demo-two-page.component';
+import { ZonePageComponent } from '@routes/titles/pages/zone-page/zone-page.component';
 
 import { TitlesPath } from '@routes/titles/constants/route.constant';
 
@@ -22,8 +24,16 @@ const routes: Routes = [
     component: CdrDemoPageComponent,
   },
   {
+    path: TitlesPath.CdrDemo2,
+    component: CdrDemoTwoPageComponent,
+  },
+  {
     path: TitlesPath.ViewsRefDemo,
     component: ViewsDemoPageComponent,
+  },
+  {
+    path: TitlesPath.Zone,
+    component: ZonePageComponent,
   },
 ];
 
