@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { CustomEmitter } from '@core/services/custom-emitter.service';
+import { CustomEmitter, ICustomEvent } from '@core/services/custom-emitter.service';
 import { DocumentRef } from '@core/services/document-ref.service';
 import { WindowRef } from '@core/services/window-ref.service';
 import { PreloadModuleService } from '@core/services/preload-module.service';
@@ -31,17 +31,17 @@ export class AppComponent implements OnInit, OnDestroy {
     // console.log(this._documentRef);
     // console.log(this._documentRef.nativeElement);
 
-    // this._customEmitter.emit<ITestData>('test', { name: 'name' });
-    // this._customEmitter.emit<ITestData>('test2', { name: 'name2' });
-    // this._customEmitter.on<ITestData>('test', 'test2')
+    // this._customEmitter.emit<number>('test', 1);
+    // this._customEmitter.emit<number>('test2', 2);
+    // this._customEmitter.on<number>('test', 'test2')
     //   .pipe(
     //     takeUntil(this._subscriber$),
     //   )
-    //   .subscribe((value: ICustomEvent<ITestData>) => {
+    //   .subscribe((value: ICustomEvent<number>) => {
     //     console.log(value);
     //   });
-    // this._customEmitter.emit<ITestData>('test2', { name: 'name2' });
-    // this._customEmitter.emit<ITestData>('test3', { name: 'name3' });
+    // this._customEmitter.emit<number>('test2', 2);
+    // this._customEmitter.emit<number>('test3', 3);
   }
 
   ngOnDestroy(): void {
@@ -52,22 +52,4 @@ export class AppComponent implements OnInit, OnDestroy {
   preloadModule(routePath: string): void {
     this._preloadModuleService.startPreload(routePath);
   }
-}
-
-interface ITestData {
-  name: string;
-}
-
-// TODO it could be in effect
-if (typeof Worker !== 'undefined') {
-  // Create a new
-  const worker = new Worker('@workers/app.worker', { type: 'module' });
-  console.log('run web worker');
-  worker.postMessage(3);
-  worker.onmessage = ({ data }) => {
-    console.log('result: ', data);
-  };
-} else {
-  // Web Workers are not supported in this environment.
-  // You should add a fallback so that your program still executes correctly.
 }

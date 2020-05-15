@@ -253,9 +253,13 @@
             "match": "(.selector$)",
             "order": 24
           }, {
+            "name": "workers",
+            "match": "^(@workers)",
+            "order": 25
+          }, {
             "name": "other",
             "match": ".*",
-            "order": 25
+            "order": 26
           }
         ]
       }
