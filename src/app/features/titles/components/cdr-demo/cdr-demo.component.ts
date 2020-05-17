@@ -8,7 +8,13 @@ import { CustomEmitter, ICustomEvent } from '@core/services/custom-emitter.servi
 import { IPerson } from '@features/titles/interfaces/person.interface';
 
 /**
- * 1. Change detection mechanism
+ * Title: Change detection mechanism and ExpressionChangedAfterItHasBeenCheckedError
+ *
+ * Every Angular application has following phases:
+ * 1. Constructing components tree
+ * 2. Running change detection. Updating the application state (components state) and it happens as a result of some callback
+ * invocation (ex. click on a button)
+ * 3. Rendering
  *
  * When angular creates an instance of component it needs to create DOM nodes for html elements from template, to track them and
  * in case of destroy remove them from DOM. Angular has a specific data structure for it and it's called View.
@@ -33,7 +39,6 @@ import { IPerson } from '@features/titles/interfaces/person.interface';
  * Important to know, that in dev mode, right after dirty checking, Angular synchronously runs and extra check (performs the same steps,
  * as during change detection) to ensure that expression that was evaluated during change detection return the same result.
  * And if it detects the difference it throws an error.
- * In case of current code, it's possible, that during second check, the result of Date.now() will be different in millisecond.
  * !!! This is a place where ExpressionChangedAfterItHasBeenCheckedError occurs !!!
  *
  * How we can avoid such error?
@@ -50,6 +55,71 @@ import { IPerson } from '@features/titles/interfaces/person.interface';
  * oldValues - and array, where Angular keeps the result of previous expression evaluation, pipe, etc
  *
  *
+ * Title: Unidirectional data flow
+ *
+ * We as developers are responsible for correct updating of application state, Angular as a framework is responsible for rendering.
+ * And Angular does it using the mechanism of change detection.
+ * There is one important limitation of change detection mechanism: as soon as Angular checked one View and moves to child components,
+ * we can no longer update the properties of component that are used in bindings, because during the synchronous check, Angular will
+ * re-evaluate the expressions and detect the difference (see 1. Change detection mechanism). However we can still update other
+ * properties that are not used in bindings.
+ *
+ * Order of change detection, according to function checkAndUpdateView(view): (see below)
+ *
+ * 1. Update input bindings on child Views/Components and directives (@Input decorator)
+ * 1.2. Call NgOnInit, NgDoCheck and NgOnChanges hooks if needed for child component
+ * Services.updateDirectives(view, 0); 0 - CheckAndUpdate
+ *
+ * 2. DOM updates, perform rendering for the current View
+ * Services.updateRenderer(view, 0); 0 - CheckAndUpdate
+ *
+ * 3. Run change detection for child component
+ * execComponentViewsAction(view, ViewAction.CheckAndUpdate);
+ *
+ * 4. Call AfterViewChecked and AfterViewInit hooks for child component
+ * callLifecycleHooksChildrenFirst(view, 8388608 | (callInit ? 4194304 : 0)); 8388608 - AfterViewChecked, 4194304 - AfterViewInit
+ * ------------------------------------------------------------------------------------------------------------------------------
+ * So according to that order, we can see that NgOnInit, NgDoCheck and NgOnChanges hooks are called before current view rendering, but
+ * AfterViewChecked and AfterViewInit hooks are called after current view rendering.
+ * Also need to note, that parent view runs hooks of child components, only step 2 is related to component itself.
+ *
+ */
+
+  // function checkAndUpdateView(view) {
+  //   if (view.state & 1 /* BeforeFirstCheck */) {
+  //     view.state &= ~1 /* BeforeFirstCheck */;
+  //     view.state |= 2 /* FirstCheck */;
+  //   }
+  //   else {
+  //     view.state &= ~2 /* FirstCheck */;
+  //   }
+  //   shiftInitState(view, 0 /* InitState_BeforeInit */, 256 /* InitState_CallingOnInit */);
+  //   markProjectedViewsForCheck(view);
+  //   Services.updateDirectives(view, 0 /* CheckAndUpdate */);
+  //   execEmbeddedViewsAction(view, ViewAction.CheckAndUpdate);
+  //   execQueriesAction(view, 67108864 /* TypeContentQuery */, 536870912 /* DynamicQuery */, 0 /* CheckAndUpdate */);
+  //   var callInit = shiftInitState(view, 256 /* InitState_CallingOnInit */, 512 /* InitState_CallingAfterContentInit */);
+  //   callLifecycleHooksChildrenFirst(view, 2097152 /* AfterContentChecked */ | (callInit ? 1048576 /* AfterContentInit */ : 0));
+  //   Services.updateRenderer(view, 0 /* CheckAndUpdate */);
+  //   execComponentViewsAction(view, ViewAction.CheckAndUpdate);
+  //   execQueriesAction(view, 134217728 /* TypeViewQuery */, 536870912 /* DynamicQuery */, 0 /* CheckAndUpdate */);
+  //   callInit = shiftInitState(view, 512 /* InitState_CallingAfterContentInit */, 768 /* InitState_CallingAfterViewInit */);
+  //   callLifecycleHooksChildrenFirst(view, 8388608 /* AfterViewChecked */ | (callInit ? 4194304 /* AfterViewInit */ : 0));
+  //   if (view.def.flags & 2 /* OnPush */) {
+  //     view.state &= ~8 /* ChecksEnabled */;
+  //   }
+  //   view.state &= ~(64 /* CheckProjectedViews */ | 32 /* CheckProjectedView */);
+  //   shiftInitState(view, 768 /* InitState_CallingAfterViewInit */, 1024 /* InitState_AfterInit */);
+  // }
+
+  // see video https://www.youtube.com/watch?v=DsBy9O0c6eo
+  // https://indepth.dev/everything-you-need-to-know-about-the-expressionchangedafterithasbeencheckederror-error/
+  // https://medium.com/angular-in-depth/these-5-articles-will-make-you-an-angular-change-detection-expert-ed530d28930
+  // https://indepth.dev/the-mechanics-of-property-bindings-update-in-angular/
+  // https://indepth.dev/here-is-why-you-will-not-find-components-inside-angular/
+  // https://indepth.dev/level-up-your-reverse-engineering-skills/
+
+/**
  * Also in this example I show how many times change detection mechanism call different types of data binding
  * 1. Using manual calculations (good one)
  * 2. Using getters (bad)
@@ -66,7 +136,7 @@ import { IPerson } from '@features/titles/interfaces/person.interface';
 })
 export class CdrDemoComponent implements OnInit, OnChanges, OnDestroy {
 
-  @Input() person: IPerson;
+  @Input() person?: IPerson;
 
   manualCount = 0;
   getterCount = 0;
@@ -74,7 +144,7 @@ export class CdrDemoComponent implements OnInit, OnChanges, OnDestroy {
   pureCount = 0;
   impureCount = 0;
 
-  personName: string;
+  personName = '';
 
   get time(): number {
     return Date.now();
@@ -83,7 +153,7 @@ export class CdrDemoComponent implements OnInit, OnChanges, OnDestroy {
   // getter
   get fullName(): string {
     this.getterCount += 1;
-    return `${this.person.firstName} ${this.person.lastName}`;
+    return `${this.person?.firstName} ${this.person?.lastName}`;
   }
 
   private _subscriber$: Subject<void> = new Subject<void>();
@@ -139,7 +209,7 @@ export class CdrDemoComponent implements OnInit, OnChanges, OnDestroy {
   // function
   getFullName(): string {
     this.functionCount += 1;
-    return `${this.person.firstName} ${this.person.lastName}`;
+    return `${this.person?.firstName} ${this.person?.lastName}`;
   }
 
   onMouseOver(): void {

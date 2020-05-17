@@ -1,4 +1,4 @@
-import { Action, createReducer, on } from '@ngrx/store';
+import { Action, ActionReducer, createReducer, on } from '@ngrx/store';
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 
 import { Nullable } from '@core/interfaces/nullable.interface';
@@ -33,12 +33,12 @@ export const initialState: ITitlesState = adapter.getInitialState({
   selectedTitleId: null,
 });
 
-const reducer = createReducer<ITitlesState>(
+export const titlesReducer = createReducer<ITitlesState>(
   initialState,
   on(TitlesActions.setTitleAction, (state: ITitlesState, { payload }) => {
     return adapter.setOne(payload, state);
   }),
-  on(TitlesActions.loadTitlesAction, (state: ITitlesState) => {
+  on(TitlesActions.loadTitlesAction, (state: ITitlesState, {}) => {
     return {
       ...state,
       error: null,
@@ -89,7 +89,7 @@ const reducer = createReducer<ITitlesState>(
   on(TitlesActions.deleteTitlesByPredicateAction, (state: ITitlesState, { payload }) => {
     return adapter.removeMany(payload, state);
   }),
-  on(TitlesActions.clearTitlesAction, (state: ITitlesState) => {
+  on(TitlesActions.clearTitlesAction, (state: ITitlesState, {}) => {
     return adapter.removeAll({ ...state, selectedUserId: null });
   }),
 
@@ -97,7 +97,3 @@ const reducer = createReducer<ITitlesState>(
     return { ...state, selectedTitleId: payload.id };
   }),
 );
-
-export function titlesReducer(state: ITitlesState, action: Action): ITitlesState {
-  return reducer(state, action);
-}

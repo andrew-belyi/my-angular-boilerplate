@@ -12,7 +12,7 @@ import { Device } from '@ui/layout/constants/layout.constatns';
 })
 export class ShowForDirective implements OnInit, OnDestroy {
 
-  @Input() appShowFor: Device[];
+  @Input() appShowFor?: Device[];
 
   private _subscriber$: Subject<void> = new Subject<void>();
 
@@ -27,7 +27,7 @@ export class ShowForDirective implements OnInit, OnDestroy {
     this._layoutHelperService.layout
       .pipe(takeUntil(this._subscriber$))
       .subscribe((device: Device) => {
-        if (this.appShowFor.includes(device)) {
+        if (this.appShowFor && this.appShowFor.includes(device)) {
           this.create();
         } else {
           this.clear();

@@ -12,7 +12,7 @@ import { Device } from '@ui/layout/constants/layout.constatns';
 })
 export class HideForDirective implements OnInit, OnDestroy {
 
-  @Input() appHideFor: Device[];
+  @Input() appHideFor?: Device[];
 
   private _subscriber$: Subject<void> = new Subject<void>();
 
@@ -27,7 +27,7 @@ export class HideForDirective implements OnInit, OnDestroy {
     this._layoutHelperService.layout
       .pipe(takeUntil(this._subscriber$))
       .subscribe((device: Device) => {
-        if (this.appHideFor.includes(device)) {
+        if (this.appHideFor && this.appHideFor.includes(device)) {
           this.clear();
         } else {
           this.create();

@@ -14,8 +14,8 @@ export class FullNameImpurePipe implements PipeTransform {
     private _customEmitter: CustomEmitter,
   ) {}
 
-  transform(person: IPerson, args?: any): any {
+  transform(person?: IPerson, args?: any): any {
     this._customEmitter.emit('impure');
-    return `${person.firstName} ${person.lastName}`;
+    return `${person?.firstName} ${person?.lastName}`;
   }
 }

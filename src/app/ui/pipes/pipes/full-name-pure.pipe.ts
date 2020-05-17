@@ -13,8 +13,8 @@ export class FullNamePurePipe implements PipeTransform {
     private _customEmitter: CustomEmitter,
   ) {}
 
-  transform(person: IPerson, args?: any): any {
+  transform(person?: IPerson, args?: any): any {
     this._customEmitter.emit('pure');
-    return `${person.firstName} ${person.lastName}`;
+    return `${person?.firstName} ${person?.lastName}`;
   }
 }

@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 
 import { PreloadModuleService } from './preload-module.service';
 
-export declare var navigator;
+export declare var navigator: any;
 export const AVOID_CONNECTIONS = ['slow-2g', '2g']; // 3g, 4g
 
 /**

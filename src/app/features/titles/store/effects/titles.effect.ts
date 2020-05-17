@@ -33,6 +33,7 @@ export class TitlesEffect {
               worker.onmessage = ({ data }) => {
                 console.log('result: ', data);
                 // this._store.dispatch(TitlesActions.setTitleAction(response[0]));
+                worker.terminate();
               };
             } else {
               // Web Workers are not supported in this environment.

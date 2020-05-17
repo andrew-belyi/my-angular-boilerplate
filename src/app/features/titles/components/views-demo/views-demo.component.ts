@@ -25,14 +25,17 @@ import { Device } from '@ui/layout/constants/layout.constatns';
 })
 export class ViewsDemoComponent implements OnInit, AfterViewInit {
 
-  @ViewChild('elemStaticRef', { read: ElementRef, static: true }) elemStaticRef: ElementRef;
-  @ViewChild('elemRef', { read: ElementRef }) elemRef: ElementRef;
+  // https://indepth.dev/here-is-how-to-get-viewcontainerref-before-viewchild-query-is-evaluated/
+  // https://hackernoon.com/exploring-angular-dom-abstractions-80b3ebcfc02
 
-  @ViewChild('tempStaticRef', { read: TemplateRef, static: true }) tempStaticRef: TemplateRef<any>;
-  @ViewChild('tempRef', { read: TemplateRef }) tempRef: TemplateRef<any>;
+  @ViewChild('elemStaticRef', { read: ElementRef, static: true }) elemStaticRef?: ElementRef;
+  @ViewChild('elemRef', { read: ElementRef }) elemRef?: ElementRef;
 
-  @ViewChild('viewContainerControllerRef', { read: ViewContainerRef }) viewContainerControllerRef: ViewContainerRef;
-  @ViewChild('viewContainerTemplateRef', { read: ViewContainerRef }) viewContainerTemplateRef: ViewContainerRef;
+  @ViewChild('tempStaticRef', { read: TemplateRef, static: true }) tempStaticRef?: TemplateRef<any>;
+  @ViewChild('tempRef', { read: TemplateRef }) tempRef?: TemplateRef<any>;
+
+  @ViewChild('viewContainerControllerRef', { read: ViewContainerRef }) viewContainerControllerRef?: ViewContainerRef;
+  @ViewChild('viewContainerTemplateRef', { read: ViewContainerRef }) viewContainerTemplateRef?: ViewContainerRef;
 
   readonly devices = Device;
 
@@ -76,7 +79,7 @@ export class ViewsDemoComponent implements OnInit, AfterViewInit {
     // // insert ViewRef created by TemplateRef into ViewContainerRef (manually in component class)
     // // we can use ngTemplateOutlet to make same in template
     // this.viewContainerControllerRef.insert(this.tempRef.createEmbeddedView(null)); // same
-    this.viewContainerControllerRef.createEmbeddedView(this.tempRef); // same
+    this.viewContainerControllerRef && this.tempRef ? this.viewContainerControllerRef.createEmbeddedView(this.tempRef) : null; // same
     //
     // // creating other component (one way)
     // // resolving factory

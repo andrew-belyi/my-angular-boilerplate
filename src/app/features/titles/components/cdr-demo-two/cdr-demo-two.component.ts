@@ -12,70 +12,46 @@ import {
 } from '@angular/core';
 
 /**
- * 2. Unidirectional data flow
+ * Title: ngOnInit and constructor
  *
- * Every Angular application has two phases:
- * 1. Updating the application state (components state) and it happens as a result of some callback invocation (ex. click on a button)
- * 2. Rendering
+ * Constructor - is just a part of js/ts class. And the constructor of the component is called when Angular constructs components tree.
+ * A class constructor in Angular is mostly used to inject dependencies. Angular calls this constructor injection pattern which is
+ * explained in details here: https://angular.io/guide/dependency-injection#when-the-service-needs-a-service.
  *
- * We as developers are responsible for correct updating of application state, Angular as a framework is responsible for rendering.
- * And Angular does it using the mechanism of change detection.
- * There is one important limitation of change detection mechanism: as soon as Angular checked one View and moves to child components,
- * we can no longer update the properties of component that are used in bindings, because during the synchronous check, Angular will
- * re-evaluate the expressions and detect the difference (see 1. Change detection mechanism). However we can still update other
- * properties that are not used in bindings.
+ * ngOnInit - is just a method on a class which structurally is not different to any other method on a class.
+ * All lifecycle hooks including ngOnInit are called as part of the change detection phase.
+ * Also @Input communication mechanism is processed as part of change detection phase so input bindings are not available in constructor.
+ * Angular calls ngOnInit when it has finished creating a component DOM, injected all required dependencies through constructor and
+ * processed input bindings. So here you have all the required information available which makes it a good place to perform
+ * initialization logic.
+ * It’s a common practice to use ngOnInit to perform initialization logic even if this logic doesn’t depend on DI, DOM or input bindings.
  *
- * Order of change detection, according to function checkAndUpdateView(view): (see below)
  *
- * 1. Update input bindings on child Views/Components and directives (@Input decorator)
- * 1.2. Call NgOnInit, NgDoCheck and NgOnChanges hooks if needed for child component
- * Services.updateDirectives(view, 0); 0 - CheckAndUpdate
+ * Lets describe the following situation:
+ * <my-app>
+ *  <child-comp [i]='prop'></child-comp>
+ * </my-app>
  *
- * 2. DOM updates, perform rendering for the current View
- * Services.updateRenderer(view, 0); 0 - CheckAndUpdate
+ * So Angular starts bootstrapping the application. As described above it first creates classes for each component.
+ * So it calls MyAppComponent constructor. When executing a component constructor Angular resolves all dependencies that are injected into
+ * MyAppComponent constructor and provides them as parameters. It also creates a DOM node which is the host element of the my-app component.
+ * Then it proceeds to creating a host element for the child-comp and calling ChildComponent constructor. At this stage Angular is not
+ * concerned with the i input binding and any lifecycle hooks. So when this process is finished Angular ends up with the following tree of
+ * component views:
  *
- * 3. Run change detection for child component
- * execComponentViewsAction(view, ViewAction.CheckAndUpdate);
+ *  MyAppView
+ *    - MyApp component instance
+ *    - my-app host element data
+ *      ChildComponentView
+ *        - ChildComponent component instance
+ *        - child-comp host element data
  *
- * 4. Call AfterViewChecked and AfterViewInit hooks for child component
- * callLifecycleHooksChildrenFirst(view, 8388608 | (callInit ? 4194304 : 0)); 8388608 - AfterViewChecked, 4194304 - AfterViewInit
- * ------------------------------------------------------------------------------------------------------------------------------
- * So according to that order, we can see that NgOnInit, NgDoCheck and NgOnChanges hooks are called before current view rendering, but
- * AfterViewChecked and AfterViewInit hooks are called after current view rendering.
+ * Only then Angular runs change detection and updates bindings for the my-app and calls ngOnInit on the MyAppComponent instance.
+ * Then it proceeds to updating the bindings for the child-comp and calls ngOnInit on the ChildComponent class.
  *
+ * https://indepth.dev/the-essential-difference-between-constructor-and-ngoninit-in-angular/
+ * https://angular.io/guide/dependency-injection#when-the-service-needs-a-service
  */
-
-  // function checkAndUpdateView(view) {
-  //   if (view.state & 1 /* BeforeFirstCheck */) {
-  //     view.state &= ~1 /* BeforeFirstCheck */;
-  //     view.state |= 2 /* FirstCheck */;
-  //   }
-  //   else {
-  //     view.state &= ~2 /* FirstCheck */;
-  //   }
-  //   shiftInitState(view, 0 /* InitState_BeforeInit */, 256 /* InitState_CallingOnInit */);
-  //   markProjectedViewsForCheck(view);
-  //   Services.updateDirectives(view, 0 /* CheckAndUpdate */);
-  //   execEmbeddedViewsAction(view, ViewAction.CheckAndUpdate);
-  //   execQueriesAction(view, 67108864 /* TypeContentQuery */, 536870912 /* DynamicQuery */, 0 /* CheckAndUpdate */);
-  //   var callInit = shiftInitState(view, 256 /* InitState_CallingOnInit */, 512 /* InitState_CallingAfterContentInit */);
-  //   callLifecycleHooksChildrenFirst(view, 2097152 /* AfterContentChecked */ | (callInit ? 1048576 /* AfterContentInit */ : 0));
-  //   Services.updateRenderer(view, 0 /* CheckAndUpdate */);
-  //   execComponentViewsAction(view, ViewAction.CheckAndUpdate);
-  //   execQueriesAction(view, 134217728 /* TypeViewQuery */, 536870912 /* DynamicQuery */, 0 /* CheckAndUpdate */);
-  //   callInit = shiftInitState(view, 512 /* InitState_CallingAfterContentInit */, 768 /* InitState_CallingAfterViewInit */);
-  //   callLifecycleHooksChildrenFirst(view, 8388608 /* AfterViewChecked */ | (callInit ? 4194304 /* AfterViewInit */ : 0));
-  //   if (view.def.flags & 2 /* OnPush */) {
-  //     view.state &= ~8 /* ChecksEnabled */;
-  //   }
-  //   view.state &= ~(64 /* CheckProjectedViews */ | 32 /* CheckProjectedView */);
-  //   shiftInitState(view, 768 /* InitState_CallingAfterViewInit */, 1024 /* InitState_AfterInit */);
-  // }
-
-  // see video https://www.youtube.com/watch?v=DsBy9O0c6eo
-  // https://indepth.dev/everything-you-need-to-know-about-the-expressionchangedafterithasbeencheckederror-error/
-  // https://medium.com/angular-in-depth/these-5-articles-will-make-you-an-angular-change-detection-expert-ed530d28930
-  // https://indepth.dev/level-up-your-reverse-engineering-skills/
 
 @Component({
   selector: 'app-cdr-demo-two',
@@ -85,8 +61,6 @@ import {
 })
 export class CdrDemoTwoComponent implements OnInit, OnChanges, AfterContentInit, AfterContentChecked,
   AfterViewInit, AfterViewChecked {
-
-  text = 'original';
 
   ngOnInit(): void {
     console.log('ngOnInit');

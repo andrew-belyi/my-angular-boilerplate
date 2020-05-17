@@ -28,10 +28,12 @@ export class CdrDemoContainerComponent implements OnInit {
 
   constructor(
     private _cdr: ChangeDetectorRef,
-  ) { }
+  ) {
+    this.personToShow = this._persons[this._index];
+  }
 
   ngOnInit(): void {
-    this.personToShow = this._persons[this._index];
+
   }
 
   onNextPersonClick(): void {
