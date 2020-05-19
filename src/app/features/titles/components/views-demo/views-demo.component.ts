@@ -28,6 +28,7 @@ export class ViewsDemoComponent implements OnInit, AfterViewInit {
   // https://indepth.dev/here-is-how-to-get-viewcontainerref-before-viewchild-query-is-evaluated/
   // https://hackernoon.com/exploring-angular-dom-abstractions-80b3ebcfc02
 
+  // static: true/false - depending on this we can use it in ngOnInit or in ngOnAfterViewInit
   @ViewChild('elemStaticRef', { read: ElementRef, static: true }) elemStaticRef?: ElementRef;
   @ViewChild('elemRef', { read: ElementRef }) elemRef?: ElementRef;
 
@@ -38,13 +39,6 @@ export class ViewsDemoComponent implements OnInit, AfterViewInit {
   @ViewChild('viewContainerTemplateRef', { read: ViewContainerRef }) viewContainerTemplateRef?: ViewContainerRef;
 
   readonly devices = Device;
-
-  cdrDemoComponent = CdrDemoComponent;
-  person: IPerson = {
-    firstName: 'Dynamic',
-    lastName: 'Component',
-    text: 'Person',
-  };
 
   constructor(
     private _hostElementRef: ElementRef,
@@ -61,10 +55,15 @@ export class ViewsDemoComponent implements OnInit, AfterViewInit {
     // console.log('ElementRef static: ', this.elemStaticRef);
     //
     // console.log('TemplateRef static: ', this.tempStaticRef);
+
+    // if (this.viewContainerControllerRef && this.tempStaticRef) {
+    //   this.viewContainerControllerRef.insert(this.tempStaticRef.createEmbeddedView(null)); // same
+    //   this.viewContainerControllerRef.createEmbeddedView(this.tempStaticRef); // same
+    // }
   }
 
   ngAfterViewInit(): void {
-    console.log('---------------AFTER VIEW INIT------------');
+    console.log('----------AFTER VIEW INIT----------');
     // console.log('Host ElementRef: ', this._hostElementRef);
     // console.log('Host ViewContainerRef: ', this._hostViewContainerRef);
     //
@@ -78,26 +77,30 @@ export class ViewsDemoComponent implements OnInit, AfterViewInit {
     //
     // // insert ViewRef created by TemplateRef into ViewContainerRef (manually in component class)
     // // we can use ngTemplateOutlet to make same in template
-    // this.viewContainerControllerRef.insert(this.tempRef.createEmbeddedView(null)); // same
-    this.viewContainerControllerRef && this.tempRef ? this.viewContainerControllerRef.createEmbeddedView(this.tempRef) : null; // same
+    // if (this.viewContainerControllerRef && this.tempRef) {
+    //   this.viewContainerControllerRef.insert(this.tempRef.createEmbeddedView(null)); // same
+    //   this.viewContainerControllerRef.createEmbeddedView(this.tempRef); // same
+    // }
     //
-    // // creating other component (one way)
-    // // resolving factory
-    // const factory = this._cfr.resolveComponentFactory(CdrDemoComponent);
-    // // provide current injector instance
-    // const componentRef = factory.create(this._injector);
-    // // setting component inputs data
-    // (<CdrDemoComponent> componentRef.instance).person = { firstName: 'first', lastName: 'last', text: 'text' };
-    // this.viewContainerControllerRef.insert(componentRef.hostView);
-    //
-    // // creating other component (second way)
-    // const factory = this._cfr.resolveComponentFactory(CdrDemoComponent);
-    // const componentRef = this.viewContainerControllerRef.createComponent(factory);
-    // (<CdrDemoComponent> componentRef.instance).person = person;
-    // componentRef.changeDetectorRef.detectChanges();
-    // (<CdrDemoComponent> componentRef.instance).person = { firstName: '1', lastName: '2', text: '3' };
-    // (<CdrDemoComponent> componentRef.instance).generateFullName();
-    // componentRef.changeDetectorRef.detectChanges();
+    // const factory = this._cfr.resolveComponentFactory(SomeComponent);
+    // let componentRef = null;
+    // if (this.viewContainerControllerRef) {
+    //   componentRef = this.viewContainerControllerRef.createComponent(factory);
+    //   componentRef.changeDetectorRef.detectChanges();
+    // }
   }
 
+}
+
+@Component({
+  selector: 'app-some',
+  template: `
+        <span>{{name}}</span>
+    `,
+})
+export class SomeComponent {
+  name = 'I am B component';
+
+  constructor() {
+  }
 }

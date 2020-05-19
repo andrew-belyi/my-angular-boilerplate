@@ -13,7 +13,7 @@ import { CdrDemoTwoContainerComponent } from './containers/cdr-demo-two-containe
 import { ZoneContainerComponent } from './containers/zone-container/zone-container.component';
 
 import { CdrDemoComponent } from './components/cdr-demo/cdr-demo.component';
-import { ViewsDemoComponent } from './components/views-demo/views-demo.component';
+import { SomeComponent, ViewsDemoComponent } from './components/views-demo/views-demo.component';
 import { TitleComponent } from './components/title/title.component';
 import { CdrDemoTwoComponent } from './components/cdr-demo-two/cdr-demo-two.component';
 import { ZoneComponent } from './components/zone/zone.component';
@@ -24,6 +24,7 @@ import { ZoneComponent } from './components/zone/zone.component';
     CdrDemoComponent,
     ViewsDemoContainerComponent,
     ViewsDemoComponent,
+    SomeComponent,
     TitlesContainerComponent,
     TitleComponent,
     CdrDemoTwoContainerComponent,

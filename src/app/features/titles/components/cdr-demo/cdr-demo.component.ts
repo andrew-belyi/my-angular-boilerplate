@@ -67,17 +67,18 @@ import { IPerson } from '@features/titles/interfaces/person.interface';
  * Order of change detection, according to function checkAndUpdateView(view): (see below)
  *
  * 1. Update input bindings on child Views/Components and directives (@Input decorator)
- * 1.2. Call NgOnInit, NgDoCheck and NgOnChanges hooks if needed for child component
- * Services.updateDirectives(view, 0); 0 - CheckAndUpdate
  *
- * 2. DOM updates, perform rendering for the current View
- * Services.updateRenderer(view, 0); 0 - CheckAndUpdate
+ * 2. call ngOnInit, OnChanges and ngDoCheck lifecycle hooks on all child components/directives
+ * Services.updateDirectives(view, 0); // 0 - CheckAndUpdate
  *
- * 3. Run change detection for child component
+ * 3. DOM updates, perform rendering for the current View
+ * Services.updateRenderer(view, 0); // 0 - CheckAndUpdate
+ *
+ * 4. Run change detection for child component
  * execComponentViewsAction(view, ViewAction.CheckAndUpdate);
  *
- * 4. Call AfterViewChecked and AfterViewInit hooks for child component
- * callLifecycleHooksChildrenFirst(view, 8388608 | (callInit ? 4194304 : 0)); 8388608 - AfterViewChecked, 4194304 - AfterViewInit
+ * 5. Call AfterViewChecked and AfterViewInit hooks for child component
+ * callLifecycleHooksChildrenFirst(view, 8388608 | (callInit ? 4194304 : 0)); // 8388608 - AfterViewChecked, 4194304 - AfterViewInit
  * ------------------------------------------------------------------------------------------------------------------------------
  * So according to that order, we can see that NgOnInit, NgDoCheck and NgOnChanges hooks are called before current view rendering, but
  * AfterViewChecked and AfterViewInit hooks are called after current view rendering.
@@ -113,9 +114,12 @@ import { IPerson } from '@features/titles/interfaces/person.interface';
   // }
 
   // see video https://www.youtube.com/watch?v=DsBy9O0c6eo
-  // https://indepth.dev/everything-you-need-to-know-about-the-expressionchangedafterithasbeencheckederror-error/
   // https://medium.com/angular-in-depth/these-5-articles-will-make-you-an-angular-change-detection-expert-ed530d28930
+  // https://indepth.dev/everything-you-need-to-know-about-the-expressionchangedafterithasbeencheckederror-error/
+  // https://indepth.dev/everything-you-need-to-know-about-change-detection-in-angular/
+  // https://indepth.dev/a-gentle-introduction-into-change-detection-in-angular/
   // https://indepth.dev/the-mechanics-of-property-bindings-update-in-angular/
+
   // https://indepth.dev/here-is-why-you-will-not-find-components-inside-angular/
   // https://indepth.dev/level-up-your-reverse-engineering-skills/
 
