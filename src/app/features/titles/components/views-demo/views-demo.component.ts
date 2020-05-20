@@ -27,6 +27,7 @@ export class ViewsDemoComponent implements OnInit, AfterViewInit {
 
   // https://indepth.dev/here-is-how-to-get-viewcontainerref-before-viewchild-query-is-evaluated/
   // https://hackernoon.com/exploring-angular-dom-abstractions-80b3ebcfc02
+  // https://www.youtube.com/watch?v=2SnVxPeJdwE - ngTemplateOutlet dropdown
 
   // static: true/false - depending on this we can use it in ngOnInit or in ngOnAfterViewInit
   @ViewChild('elemStaticRef', { read: ElementRef, static: true }) elemStaticRef?: ElementRef;

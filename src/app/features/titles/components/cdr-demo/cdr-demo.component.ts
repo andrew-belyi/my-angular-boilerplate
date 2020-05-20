@@ -1,4 +1,14 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component, EventEmitter,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -14,7 +24,10 @@ import { IPerson } from '@features/titles/interfaces/person.interface';
  * 1. Constructing components tree
  * 2. Running change detection. Updating the application state (components state) and it happens as a result of some callback
  * invocation (ex. click on a button)
- * 3. Rendering
+ *
+ * There are two main building blocks of change detection in Angular:
+ * 1. A component View
+ * 2. The associated bindings
  *
  * When angular creates an instance of component it needs to create DOM nodes for html elements from template, to track them and
  * in case of destroy remove them from DOM. Angular has a specific data structure for it and it's called View.
@@ -114,11 +127,16 @@ import { IPerson } from '@features/titles/interfaces/person.interface';
   // }
 
   // see video https://www.youtube.com/watch?v=DsBy9O0c6eo
-  // https://medium.com/angular-in-depth/these-5-articles-will-make-you-an-angular-change-detection-expert-ed530d28930
+  // https://indepth.dev/these-5-articles-will-make-you-an-angular-change-detection-expert/
+  // https://indepth.dev/a-gentle-introduction-into-change-detection-in-angular/
   // https://indepth.dev/everything-you-need-to-know-about-the-expressionchangedafterithasbeencheckederror-error/
   // https://indepth.dev/everything-you-need-to-know-about-change-detection-in-angular/
-  // https://indepth.dev/a-gentle-introduction-into-change-detection-in-angular/
   // https://indepth.dev/the-mechanics-of-property-bindings-update-in-angular/
+  // https://indepth.dev/what-every-front-end-developer-should-know-about-change-detection-in-angular-and-react/
+  // https://www.mokkapps.de/blog/the-last-guide-for-angular-change-detection-you-will-ever-need/
+
+  // functions or pipes usage
+  // https://medium.com/showpad-engineering/why-you-should-never-use-function-calls-in-angular-template-expressions-e1a50f9c0496
 
   // https://indepth.dev/here-is-why-you-will-not-find-components-inside-angular/
   // https://indepth.dev/level-up-your-reverse-engineering-skills/

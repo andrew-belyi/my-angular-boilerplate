@@ -23,6 +23,11 @@ export class CdrDemoContainerComponent implements OnInit {
       lastName: 'Mleviossaaaaa',
       text: 'Vingardium Mleviossaaaaa',
     },
+    {
+      firstName: 'Inpector',
+      lastName: 'Patronus',
+      text: 'Inspector Patronus',
+    },
   ];
   private _index = 0;
 
@@ -48,5 +53,4 @@ export class CdrDemoContainerComponent implements OnInit {
     console.log('emit change');
     this._cdr.detectChanges();
   }
-
 }
