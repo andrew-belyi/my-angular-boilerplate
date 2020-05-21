@@ -21,7 +21,7 @@ import { IPerson } from '@features/titles/interfaces/person.interface';
  * Title: Change detection mechanism and ExpressionChangedAfterItHasBeenCheckedError
  *
  * Every Angular application has following phases:
- * 1. Constructing components tree
+ * 1. Constructing tree of Views
  * 2. Running change detection. Updating the application state (components state) and it happens as a result of some callback
  * invocation (ex. click on a button)
  *
@@ -78,20 +78,21 @@ import { IPerson } from '@features/titles/interfaces/person.interface';
  * properties that are not used in bindings.
  *
  * Order of change detection, according to function checkAndUpdateView(view): (see below)
- *
- * 1. Update input bindings on child Views/Components and directives (@Input decorator)
- *
- * 2. call ngOnInit, OnChanges and ngDoCheck lifecycle hooks on all child components/directives
- * Services.updateDirectives(view, 0); // 0 - CheckAndUpdate
- *
- * 3. DOM updates, perform rendering for the current View
- * Services.updateRenderer(view, 0); // 0 - CheckAndUpdate
- *
- * 4. Run change detection for child component
- * execComponentViewsAction(view, ViewAction.CheckAndUpdate);
- *
- * 5. Call AfterViewChecked and AfterViewInit hooks for child component
- * callLifecycleHooksChildrenFirst(view, 8388608 | (callInit ? 4194304 : 0)); // 8388608 - AfterViewChecked, 4194304 - AfterViewInit
+ * 1. sets ViewState.firstCheck to true if a view is checked for the first time and to false if it was already checked before
+ * 2. checks and updates input properties on a child component/directive instance
+ * 3. updates child view change detection state (part of change detection strategy implementation)
+ * 4. runs change detection for the embedded views (repeats the steps in the list)
+ * 5. calls OnChanges lifecycle hook on a child component if bindings changed
+ * 6. calls OnInit and ngDoCheck on a child component (OnInit is called only during first check)
+ * 7. updates ContentChildren query list on a child view component instance
+ * 8. calls AfterContentInit and AfterContentChecked lifecycle hooks on child component instance
+ * (AfterContentInit is called only during first check)
+ * 9. updates DOM interpolations for the current view if properties on current view component instance changed
+ * 10. runs change detection for a child view (repeats the steps in this list)
+ * 11. updates ViewChildren query list on the current view component instance
+ * 12. calls AfterViewInit and AfterViewChecked lifecycle hooks on child component instance
+ * (AfterViewInit is called only during first check)
+ * 13. disables checks for the current view (part of change detection strategy implementation)
  * ------------------------------------------------------------------------------------------------------------------------------
  * So according to that order, we can see that NgOnInit, NgDoCheck and NgOnChanges hooks are called before current view rendering, but
  * AfterViewChecked and AfterViewInit hooks are called after current view rendering.

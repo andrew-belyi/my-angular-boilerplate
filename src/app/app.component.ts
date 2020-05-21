@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -14,7 +14,7 @@ import { PreloadModuleService } from '@core/services/preload-module.service';
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit, OnChanges, OnDestroy {
 
   // run fake server with build in dist folder:
   // http-server -p 8080 -c-1 dist/<project-name>
@@ -22,6 +22,8 @@ export class AppComponent implements OnInit, OnDestroy {
   // monitor bundles sizes
   // ng build --statsJson
   // webpack-bundle-analyzer ./dist/<project-name>/stats.json
+
+  title = 'My Angular Boilerplate';
 
   private _subscriber$: Subject<void> = new Subject<void>();
 
@@ -49,6 +51,10 @@ export class AppComponent implements OnInit, OnDestroy {
     //   });
     // this._customEmitter.emit<number>('test2', 2);
     // this._customEmitter.emit<number>('test3', 3);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('changes: ', changes);
   }
 
   ngOnDestroy(): void {

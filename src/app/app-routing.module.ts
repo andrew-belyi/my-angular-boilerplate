@@ -12,7 +12,7 @@ import { CorePath } from '@core/constants/route.constant';
 
 // TODO
 // router generate functions, routes string as enums - TODO how to generate using manual or pipe output
-// ngrx, store-route, go
+// ngrx, store-route, go, route change events
 // interceptors
 // auth guard
 // permissions
