@@ -9,6 +9,7 @@ import { CdrDemoPageComponent } from './pages/cdr-demo-page/cdr-demo-page.compon
 import { ViewsDemoPageComponent } from './pages/views-demo-page/views-demo-page.component';
 import { CdrDemoTwoPageComponent } from './pages/cdr-demo-two-page/cdr-demo-two-page.component';
 import { ZonePageComponent } from './pages/zone-page/zone-page.component';
+import { TitlePageComponent } from './pages/title-page/title-page.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { ZonePageComponent } from './pages/zone-page/zone-page.component';
     CdrDemoTwoPageComponent,
     ViewsDemoPageComponent,
     ZonePageComponent,
+    TitlePageComponent,
   ],
   imports: [
     CommonModule,

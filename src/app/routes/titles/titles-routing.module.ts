@@ -6,6 +6,7 @@ import { CdrDemoPageComponent } from '@routes/titles/pages/cdr-demo-page/cdr-dem
 import { ViewsDemoPageComponent } from '@routes/titles/pages/views-demo-page/views-demo-page.component';
 import { CdrDemoTwoPageComponent } from '@routes/titles/pages/cdr-demo-two-page/cdr-demo-two-page.component';
 import { ZonePageComponent } from '@routes/titles/pages/zone-page/zone-page.component';
+import { TitlePageComponent } from '@routes/titles/pages/title-page/title-page.component';
 
 import { TitlesPath } from '@routes/titles/constants/route.constant';
 
@@ -18,6 +19,10 @@ const routes: Routes = [
   {
     path: TitlesPath.All,
     component: TitlesPageComponent,
+  },
+  {
+    path: TitlesPath.TitleId,
+    component: TitlePageComponent,
   },
   {
     path: TitlesPath.CdrDemo,

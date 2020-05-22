@@ -1,5 +1,5 @@
 import { EntityMap, Predicate, Update } from '@ngrx/entity';
-import { createAction, props } from '@ngrx/store';
+import { createAction } from '@ngrx/store';
 
 import { IServerError } from '@core/interfaces/error.interface';
 

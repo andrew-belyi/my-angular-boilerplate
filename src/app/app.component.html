@@ -1,7 +1,7 @@
 <h2>{{ title }}</h2>
-<a type="button" [routerLink]="['/', 'dashboard']">Dashboard</a>
+<a type="button" [routerLink]="'dashboard' | routerRedirection">Dashboard</a>
 <br/>
-<a type="button" [routerLink]="['/', 'auth']">Auth</a>
+<a type="button" [routerLink]="'auth' | routerRedirection">Auth</a>
 <br/>
 <a type="button" [routerLink]="['/', 'admin']" (mouseover)="preloadModule('admin')">Admin</a>
 <br/>

@@ -6,3 +6,9 @@
 <br/>
 <a type="button" [routerLink]="['/', 'titles', 'zone']">Zone</a>
 <br/>
+
+<a *ngFor="let titleId of (titlesIds$ | async); trackBy: trackByFn"
+   type="button"
+   [routerLink]="'toTitleById' | routerRedirection:titleId">
+  {{ titleId }}
+</a>

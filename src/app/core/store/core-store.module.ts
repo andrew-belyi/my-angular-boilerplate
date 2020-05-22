@@ -15,11 +15,11 @@ import { CORE_STORE_EFFECTS } from '@core/store/effects';
   imports: [
     StoreModule.forRoot(CORE_STORE_REDUCERS_TOKEN, {
       runtimeChecks: {
-        strictStateImmutability: true,
-        strictActionImmutability: true,
-        strictStateSerializability: true,
-        strictActionSerializability: true,
-        strictActionWithinNgZone: true,
+        strictStateImmutability: !environment.production,
+        strictActionImmutability: !environment.production,
+        strictStateSerializability: !environment.production,
+        strictActionSerializability: !environment.production,
+        strictActionWithinNgZone: !environment.production,
       },
     }),
     StoreRouterConnectingModule.forRoot({

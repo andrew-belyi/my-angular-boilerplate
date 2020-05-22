@@ -22,12 +22,12 @@ function sortByTitle(a: ITitle, b: ITitle): number {
   return a.title.localeCompare(b.title);
 }
 
-export const adapter: EntityAdapter<ITitle> = createEntityAdapter<ITitle>({
+const adapter: EntityAdapter<ITitle> = createEntityAdapter<ITitle>({
   selectId: selectTitleId,
   sortComparer: sortByTitle,
 });
 
-export const initialState: ITitlesState = adapter.getInitialState({
+const initialState: ITitlesState = adapter.getInitialState({
   pending: false,
   error: null,
   selectedTitleId: null,
@@ -97,3 +97,15 @@ export const titlesReducer = createReducer<ITitlesState>(
     return { ...state, selectedTitleId: payload.id };
   }),
 );
+
+const {
+  selectIds,
+  selectEntities,
+  selectAll,
+  selectTotal,
+} = adapter.getSelectors();
+
+export const selectTitlesIds = selectIds;
+export const selectTitlesEntities = selectEntities;
+export const selectAllTitles = selectAll;
+export const selectTitlesTotal = selectTotal;

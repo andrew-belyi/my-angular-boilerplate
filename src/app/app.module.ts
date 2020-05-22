@@ -5,6 +5,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
+import { RouterRedirectionPipeModule } from '@ui/pipes/router-redirection/router-redirection-pipe.module';
 
 import { AppComponent } from './app.component';
 
@@ -19,6 +20,7 @@ import { environment } from '../environments/environment';
     AppRoutingModule,
     CoreModule,
     BrowserAnimationsModule,
+    RouterRedirectionPipeModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   bootstrap: [AppComponent],
