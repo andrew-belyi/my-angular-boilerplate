@@ -20,10 +20,10 @@ const routes: Routes = [
     path: TitlesPath.All,
     component: TitlesPageComponent,
   },
-  {
-    path: TitlesPath.TitleId,
-    component: TitlePageComponent,
-  },
+  // {
+  //   path: TitlesPath.TitleId,
+  //   component: TitlePageComponent,
+  // },
   {
     path: TitlesPath.CdrDemo,
     component: CdrDemoPageComponent,

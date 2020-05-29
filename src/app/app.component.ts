@@ -16,13 +16,6 @@ import { PreloadModuleService } from '@core/services/preload-module.service';
 })
 export class AppComponent implements OnInit, OnChanges, OnDestroy {
 
-  // run fake server with build in dist folder:
-  // http-server -p 8080 -c-1 dist/<project-name>
-
-  // monitor bundles sizes
-  // ng build --statsJson
-  // webpack-bundle-analyzer ./dist/<project-name>/stats.json
-
   title = 'My Angular Boilerplate';
 
   private _subscriber$: Subject<void> = new Subject<void>();

@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, NgZone } from '@angular/core';
 
-import 'zone.js';
+// import 'zone.js';
 
 @Component({
   selector: 'app-zone',
@@ -8,97 +8,99 @@ import 'zone.js';
   styleUrls: ['./zone.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ZoneComponent implements OnInit {
+export class ZoneComponent {
 
-  constructor(
-    private _zone: NgZone,
-  ) { }
+  // https://medium.com/@overthesanity/zone-js-%D0%BE%D1%82-%D0%B0-%D0%B4%D0%BE-%D1%8F-fdb995917968
 
-  ngOnInit(): void {
-    console.log(this._zone);
-    // console.log('Zone.current (angular zone): ', Zone.current);
-    // console.log('Zone.current.parent (root zone): ', Zone.current.parent);
-    // console.log('Zone.current.parent.parent (null): ', Zone.current.parent.parent);
-    // console.log('---------------------------------------------------------------');
-
-    const myFirstZone = Zone.current.fork({
-      name: 'My first test zone',
-      properties: {
-        test: 'My first zone test property',
-      },
-
-      onFork(parentZoneDelegate: ZoneDelegate, currentZone: Zone, targetZone: Zone, zoneSpec: ZoneSpec): Zone {
-        console.log('Fork was called');
-
-        return parentZoneDelegate.fork(targetZone, zoneSpec);
-      },
-
-      onIntercept(parentZoneDelegate: ZoneDelegate, currentZone: Zone, targetZone: Zone, delegate: Function, source: string): Function {
-        console.log('Interception was called');
-
-        return parentZoneDelegate.intercept(targetZone, delegate, source);
-      },
-
-      onInvoke(parentZoneDelegate: ZoneDelegate, currentZone: Zone, targetZone: Zone, delegate: Function,
-               applyThis: any, applyArgs?: any[], source?: string): any {
-        console.log('Run was called');
-        console.log('Delegate: ', delegate);
-
-        return parentZoneDelegate.invoke(targetZone, delegate, applyThis, applyArgs, source);
-      },
-
-      onHandleError(parentZoneDelegate: ZoneDelegate, currentZone: Zone, targetZone: Zone, error: any): boolean {
-        console.log('Error handler was called');
-
-        return parentZoneDelegate.handleError(targetZone, error);
-      },
-
-      onScheduleTask(parentZoneDelegate: ZoneDelegate, currentZone: Zone, targetZone: Zone, task: Task): Task {
-        console.log('Async task was called, the callback will be called later');
-        console.log('Callback: ', task.callback);
-        // task.callback is function that will be called after async
-
-        return parentZoneDelegate.scheduleTask(targetZone, task);
-      },
-
-      onInvokeTask(parentZoneDelegate: ZoneDelegate, currentZone: Zone, targetZone: Zone,
-                   task: Task, applyThis: any, applyArgs?: any[]): any {
-        console.log('The callback from async task was called');
-        console.log('Callback: ', task.callback);
-
-        return parentZoneDelegate.invokeTask(targetZone, task, applyThis, applyArgs);
-      },
-
-      onCancelTask(parentZoneDelegate: ZoneDelegate, currentZone: Zone, targetZone: Zone, task: Task): any {
-        console.log('Cancel task was called');
-
-        return parentZoneDelegate.cancelTask(targetZone, task);
-      },
-
-      onHasTask(parentZoneDelegate: ZoneDelegate, currentZone: Zone, targetZone: Zone, hasTaskState: HasTaskState): void {
-        console.log('On has task was called');
-        console.log(hasTaskState);
-
-        return parentZoneDelegate.hasTask(targetZone, hasTaskState);
-      },
-    });
-
-    myFirstZone.run(() => {
-      setTimeout((text: string) => {
-        console.log('Hello from run after 2 seconds: ', text);
-      }, 2000);
-    });
-    // console.log('myFirstZone.name: ', myFirstZone.name);
-    // console.log('myFirstZone.parent: ', myFirstZone.parent);
-    // console.log('myFirstZone.parent === Zone.current', myFirstZone.parent === Zone.current);
-    // console.log('myFirstZone.get(\'test\'): ', myFirstZone.get('test'));
-
-    // const mySecondZone = myFirstZone.fork({
-    //   name: 'My second test zone'
-    // });
-    // console.log('mySecondZone.name: ', mySecondZone.name);
-    // console.log('mySecondZone.parent: ', mySecondZone.parent);
-  }
+  // constructor(
+  //   private _zone: NgZone,
+  // ) { }
+  //
+  // ngOnInit(): void {
+  //   console.log(this._zone);
+  //   console.log('Zone.current (angular zone): ', Zone.current);
+  //   console.log('Zone.current.parent (root zone): ', Zone.current.parent);
+  //   console.log('Zone.current.parent.parent (null): ', Zone.current.parent.parent);
+  //   console.log('---------------------------------------------------------------');
+  //
+  //   const myFirstZone = Zone.current.fork({
+  //     name: 'My first test zone',
+  //     properties: {
+  //       test: 'My first zone test property',
+  //     },
+  //
+  //     onFork(parentZoneDelegate: ZoneDelegate, currentZone: Zone, targetZone: Zone, zoneSpec: ZoneSpec): Zone {
+  //       console.log('Fork was called');
+  //
+  //       return parentZoneDelegate.fork(targetZone, zoneSpec);
+  //     },
+  //
+  //     onIntercept(parentZoneDelegate: ZoneDelegate, currentZone: Zone, targetZone: Zone, delegate: Function, source: string): Function {
+  //       console.log('Interception was called');
+  //
+  //       return parentZoneDelegate.intercept(targetZone, delegate, source);
+  //     },
+  //
+  //     onInvoke(parentZoneDelegate: ZoneDelegate, currentZone: Zone, targetZone: Zone, delegate: Function,
+  //              applyThis: any, applyArgs?: any[], source?: string): any {
+  //       console.log('Run was called');
+  //       console.log('Delegate: ', delegate);
+  //
+  //       return parentZoneDelegate.invoke(targetZone, delegate, applyThis, applyArgs, source);
+  //     },
+  //
+  //     onHandleError(parentZoneDelegate: ZoneDelegate, currentZone: Zone, targetZone: Zone, error: any): boolean {
+  //       console.log('Error handler was called');
+  //
+  //       return parentZoneDelegate.handleError(targetZone, error);
+  //     },
+  //
+  //     onScheduleTask(parentZoneDelegate: ZoneDelegate, currentZone: Zone, targetZone: Zone, task: Task): Task {
+  //       console.log('Async task was called, the callback will be called later');
+  //       console.log('Callback: ', task.callback);
+  //       // task.callback is function that will be called after async
+  //
+  //       return parentZoneDelegate.scheduleTask(targetZone, task);
+  //     },
+  //
+  //     onInvokeTask(parentZoneDelegate: ZoneDelegate, currentZone: Zone, targetZone: Zone,
+  //                  task: Task, applyThis: any, applyArgs?: any[]): any {
+  //       console.log('The callback from async task was called');
+  //       console.log('Callback: ', task.callback);
+  //
+  //       return parentZoneDelegate.invokeTask(targetZone, task, applyThis, applyArgs);
+  //     },
+  //
+  //     onCancelTask(parentZoneDelegate: ZoneDelegate, currentZone: Zone, targetZone: Zone, task: Task): any {
+  //       console.log('Cancel task was called');
+  //
+  //       return parentZoneDelegate.cancelTask(targetZone, task);
+  //     },
+  //
+  //     onHasTask(parentZoneDelegate: ZoneDelegate, currentZone: Zone, targetZone: Zone, hasTaskState: HasTaskState): void {
+  //       console.log('On has task was called');
+  //       console.log(hasTaskState);
+  //
+  //       return parentZoneDelegate.hasTask(targetZone, hasTaskState);
+  //     },
+  //   });
+  //
+  //   myFirstZone.run(() => {
+  //     setTimeout((text: string) => {
+  //       console.log('Hello from run after 2 seconds: ', text);
+  //     }, 2000);
+  //   });
+  //   console.log('myFirstZone.name: ', myFirstZone.name);
+  //   console.log('myFirstZone.parent: ', myFirstZone.parent);
+  //   console.log('myFirstZone.parent === Zone.current', myFirstZone.parent === Zone.current);
+  //   console.log('myFirstZone.get(\'test\'): ', myFirstZone.get('test'));
+  //
+  //   const mySecondZone = myFirstZone.fork({
+  //     name: 'My second test zone'
+  //   });
+  //   console.log('mySecondZone.name: ', mySecondZone.name);
+  //   console.log('mySecondZone.parent: ', mySecondZone.parent);
+  // }
 }
 
 // !!!!!!!!!!!!!!!!!!!!! ANGULAR ZONE FORK FROM PARENT ZONE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

@@ -4,22 +4,19 @@
   "scripts": {
     "ng": "ng",
     "start": "npm run lint:fix && ng serve",
-    "start:aot": "npm run lint:fix && ng serve --aot",
     "start:stage": "npm run lint && ng serve --configuration=stage",
     "start:prod": "npm run lint && ng serve --configuration=production",
     "build": "ng build",
-    "build:aot": "ng build --aot",
     "build:dev": "ng build --configuration=development",
-    "build:dev:aot": "ng build --configuration=development --aot",
     "build:stage": "ng build --prod --configuration=stage",
-    "build:stage:aot": "ng build --prod --configuration=stage --aot",
     "build:prod": "ng build --prod --configuration=production",
-    "build:prod:aot": "ng build --prod --configuration=production --aot",
     "lint": "ng lint my-angular-boilerplate",
     "lint:fix": "ng lint my-angular-boilerplate --fix",
     "lint:commit": "tslint -p tsconfig.json -c tslint.json --fix",
     "test": "ng test",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "analyze": "ng build --statsJson && webpack-bundle-analyzer ./dist/my-angular-boilerplate/stats-es2015.json",
+    "fake:server": "http-server -p 8080 -c-1 dist/my-angular-boilerplate"
   },
   "lint-staged": {
     "src/**/*.ts": [
